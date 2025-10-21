@@ -136,32 +136,59 @@ kurssienhallinta/
 ├── config/
 
 │   └── db_connect.php
+
 ├── sisältää/
+
 │   ├── functions.php
+
 │   ├── header.php
+
 │   └── footer.php
+
 ├── sivut/
+
 │   ├── opettajat/
+
 │   │   ├── index.php
+
 │   │   ├── view.php
+
 │   │   ├── add.php
+
 │   │   ├── edit.php
+
 │   │   └── delete.php
+
 │   ├── oppilaat/
+
 │   ├── kurssit/
+
 │   ├── tilat/
+
 │   └── ilmoittautumiset/
+
 ├── css/
+
 │   └── style.css
+
 ├── js/
+
 │   └── script.js
+
 ├── screenshots/
+
 │   ├── 1_taulut.png
+
 │   ├── 2_er_diagram.png
+
 │   └── 3_testidata.png
+
 ├── kurssienhallinta.sql
+
 ├── README.md
+
 └── index.php
+
 └── er-kaavio
 
 
