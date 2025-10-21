@@ -9,7 +9,7 @@ $kurssi = [
   'kurssi_id' => null,
   'kurssin_tunnus' => '',
   'kurssi_nimi' => '',
-  'kuvaus' => '',
+  'kurssikuvaus' => '',
   'aloituspaiva' => '',
   'lopetuspaiva' => '',
   'opettaja_id' => '',
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = [
     $_POST['kurssin_tunnus'],
     $_POST['kurssi_nimi'],
-    $_POST['kuvaus'],
+    $_POST['kurssikuvaus'],
     $_POST['aloituspaiva'],
     $_POST['lopetuspaiva'],
     $_POST['opettaja_id'],
@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   ];
   if (!empty($_POST['kurssi_id'])) {
     $data[] = $_POST['kurssi_id'];
-    $stmt = $pdo->prepare("UPDATE kurssit SET kurssin_tunnus=?, kurssi_nimi=?, kuvaus=?, aloituspaiva=?, lopetuspaiva=?, opettaja_id=?, tila_id=? WHERE kurssi_id=?");
+    $stmt = $pdo->prepare("UPDATE kurssit SET kurssin_tunnus=?, kurssi_nimi=?, kurssikuvaus=?, aloituspaiva=?, lopetuspaiva=?, opettaja_id=?, tila_id=? WHERE kurssi_id=?");
   } else {
-    $stmt = $pdo->prepare("INSERT INTO kurssit (kurssin_tunnus, kurssi_nimi, kuvaus, aloituspaiva, lopetuspaiva, opettaja_id, tila_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO kurssit (kurssin_tunnus, kurssi_nimi, kurssikuvaus, aloituspaiva, lopetuspaiva, opettaja_id, tila_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
   }
   $stmt->execute($data);
   header("Location: index.php");
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
   <div class="mb-3">
     <label class="form-label">Kuvaus</label>
-    <textarea name="kuvaus" class="form-control"><?= htmlspecialchars($kurssi['kuvaus']) ?></textarea>
+    <textarea name="kurssikuvaus" class="form-control"><?= htmlspecialchars($kurssi['kurssikuvaus']) ?></textarea>
   </div>
   <div class="row">
     <div class="col-md-6 mb-3">
