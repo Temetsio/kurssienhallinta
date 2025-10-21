@@ -193,6 +193,7 @@ YHTEYSTIEDOT
 Projekti tehty osana Juhannuskukkulan tietokantakurssia.
 
 Tiimi: Meleqe, Teemu, Vesku, Eevert ja Jenni
+
 Päivämäärä: Lokakuu 2025
 
 
