@@ -6,9 +6,13 @@ Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita
 TIIMI
 
 Henkilö 1: Tietokantasuunnittelu ja -toteutus
+
 Henkilö 2: Backend-arkkitehtuuri ja tietokantayhteys
+
 Henkilö 3: Lomakkeet ja CRUD-toiminnot
+
 Henkilö 4: Näkymät ja raportit
+
 Henkilö 5: UI/UX ja viimeistely
 
 
