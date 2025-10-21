@@ -96,6 +96,8 @@ try {
 ?>
 
 
+
+
 TOIMINNALLISUUDET
 
 KÄYTTÄJÄN NÄKYMÄT
@@ -206,10 +208,15 @@ KÄYNNISTYS
 KEHITYSIDEOITA
 
 Käyttäjien kirjautuminen (admin/opiskelija)
+
 Arvosanojen hallinta
+
 Läsnäolojen seuranta
+
 Kurssien hakutoiminto
+
 Ilmoittautumisen vahvistusviestit
+
 Raporttien vienti PDF:ksi
 
 
