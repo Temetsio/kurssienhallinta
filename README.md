@@ -132,7 +132,9 @@ Palvelin: Apache (XAMPP)
 PROJEKTIRAKENNE
 
 kurssienhallinta/
+
 ├── config/
+
 │   └── db_connect.php
 ├── sisältää/
 │   ├── functions.php
