@@ -35,6 +35,11 @@ $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi FROM oppilaat ORDER BY 
      <strong>Tila:</strong> <?=htmlspecialchars($kurssi['tila_nimi'])?><br>
      <strong>Ajanjakso:</strong> <?=htmlspecialchars($kurssi['aloituspaiva'])?> — <?=htmlspecialchars($kurssi['lopetuspaiva'])?></p>
 
+  <?php if (!empty($kurssi['kurssikuvaus'])): ?>
+    <h3>Kurssikuvaus</h3>
+    <p><?=nl2br(htmlspecialchars($kurssi['kurssikuvaus']))?></p>
+  <?php endif; ?>
+
   <h2>Ilmoittautuneet</h2>
   <?php if (count($ilmo) === 0): ?>
     <p>Ei ilmoittautuneita.</p>
