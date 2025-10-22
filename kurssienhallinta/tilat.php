@@ -7,7 +7,13 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi, paikkoja FROM tilat ORDER BY ti
   <a href="index.php">← Kurssit</a><h1>Tilat</h1>
   <ul>
   <?php foreach($tilat as $t): ?>
-    <li><?=htmlspecialchars($t['tila_nimi'].' — '.$t['paikkoja'].' paikkaa')?></li>
-  <?php endforeach; ?>
+      <li>
+        <a href="tila.php?id=<?= (int)$t['tila_id'] ?>">
+          <?= htmlspecialchars($t['tila_nimi']) ?>
+        </a>
+        — <?= htmlspecialchars($t['paikkoja']) ?> paikkaa
+      </li>
+    <?php endforeach; ?>
   </ul>
-</body></html>
+</body>
+</html>

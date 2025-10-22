@@ -9,13 +9,18 @@ $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi, syntymaaika, vuosikurs
   <table>
     <thead><tr><th>Nimi</th><th>Syntymäaika</th><th>Vuosikurssi</th></tr></thead>
     <tbody>
-      <?php foreach($opp as $o): ?>
+<?php foreach($opp as $o): ?>
       <tr>
-        <td><?=htmlspecialchars($o['etunimi'].' '.$o['sukunimi'])?></td>
-        <td><?=htmlspecialchars($o['syntymaaika'])?></td>
-        <td><?=htmlspecialchars($o['vuosikurssi'])?></td>
+        <td>
+          <a href="opiskelija.php?id=<?= (int)$o['oppilas_id'] ?>">
+            <?= htmlspecialchars($o['etunimi'].' '.$o['sukunimi']) ?>
+          </a>
+        </td>
+        <td><?= htmlspecialchars($o['syntymaaika']) ?></td>
+        <td><?= htmlspecialchars($o['vuosikurssi']) ?></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-</body></html>
+</body>
+</html>
