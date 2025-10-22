@@ -1,102 +1,121 @@
-KURSSIENHALLINTAJÄRJESTELMÄ
+# KURSSIENHALLINTAJÄRJESTELMÄ
 
 Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita, opettajia, kursseja ja kurssi-ilmoittautumisia.
 
+---
 
-TIIMI
-`````
-Jenni: Tietokantasuunnittelu ja -toteutus
-Vesku: Backend-arkkitehtuuri ja tietokantayhteys
-Eevert: Lomakkeet ja CRUD-toiminnot
-Meleqe: Näkymät ja raportit
-Teemu: UI/UX ja viimeistely
-`````
+## TIIMI
 
-TIETOKANTARAKENNE
+- Jenni: Tietokantasuunnittelu ja -toteutus  
+- Vesku: Backend-arkkitehtuuri ja tietokantayhteys  
+- Eevert: Lomakkeet ja CRUD-toiminnot  
+- Meleqe: Näkymät ja raportit  
+- Teemu: UI/UX ja viimeistely  
 
-TAULUT
+---
 
-1. oppilaat
-   - oppilas_id (PK, INT, AUTO_INCREMENT)
-   - etunimi (VARCHAR 50)
-   - sukunimi (VARCHAR 50)
-   - syntymaaika (DATE)
-   - vuosikurssi (INT, 1-3)
+## TIETOKANTARAKENNE
 
-2. opettajat
-   - opettaja_id (PK, INT, AUTO_INCREMENT)
-   - etunimi (VARCHAR 50)
-   - sukunimi (VARCHAR 50)
-   - aine (VARCHAR 100)
+### TAULUT
 
-3. tilat
-   - tila_id (PK, INT, AUTO_INCREMENT)
-   - tila_nimi (VARCHAR 50, UNIQUE)
-   - paikkoja (INT)
+#### oppilaat
+- `oppilas_id` (PK, INT, AUTO_INCREMENT)  
+- `etunimi` (VARCHAR 50)  
+- `sukunimi` (VARCHAR 50)  
+- `syntymaaika` (DATE)  
+- `vuosikurssi` (INT, 1-3)  
 
-4. kurssit
-   - kurssi_id (PK, INT, AUTO_INCREMENT)
-   - kurssin_tunnus (VARCHAR 20, UNIQUE)
-   - kurssi_nimi (VARCHAR 100)
-   - kurssikuvaus (TEXT)
-   - aloituspaiva (DATE)
-   - lopetuspaiva (DATE)
-   - opettaja_id (FK viittaa opettajat-tauluun)
-   - tila_id (FK viittaa tilat-tauluun)
+#### opettajat
+- `opettaja_id` (PK, INT, AUTO_INCREMENT)  
+- `etunimi` (VARCHAR 50)  
+- `sukunimi` (VARCHAR 50)  
+- `aine` (VARCHAR 100)  
 
-5. ilmoittautuminen
-   - ilmoittautuminen_id (PK, INT, AUTO_INCREMENT)
-   - opiskelija_id (FK viittaa oppilaat-tauluun)
-   - kurssi_id (FK viittaa kurssit-tauluun)
-   - ilmoittautumispaiva (DATETIME)
-   - UNIQUE constraint: (opiskelija_id, kurssi_id)
+#### tilat
+- `tila_id` (PK, INT, AUTO_INCREMENT)  
+- `tila_nimi` (VARCHAR 50, UNIQUE)  
+- `paikkoja` (INT)  
+
+#### kurssit
+- `kurssi_id` (PK, INT, AUTO_INCREMENT)  
+- `kurssin_tunnus` (VARCHAR 20, UNIQUE)  
+- `kurssi_nimi` (VARCHAR 100)  
+- `kurssikuvaus` (TEXT)  
+- `aloituspaiva` (DATE)  
+- `lopetuspaiva` (DATE)  
+- `opettaja_id` (FK viittaa `opettajat`)  
+- `tila_id` (FK viittaa `tilat`)  
+
+#### ilmoittautuminen
+- `ilmoittautuminen_id` (PK, INT, AUTO_INCREMENT)  
+- `opiskelija_id` (FK viittaa `oppilaat`)  
+- `kurssi_id` (FK viittaa `kurssit`)  
+- `ilmoittautumispaiva` (DATETIME)  
+- UNIQUE constraint: (`opiskelija_id`, `kurssi_id`)  
+
+---
+
+### RELAATIOT
+
+- `opettajat` (1) → (n) `kurssit`  
+- `tilat` (1) → (n) `kurssit`  
+- `oppilaat` (n) ↔ (n) `kurssit` (`ilmoittautuminen`-välitaulu)  
+
+---
+
+## NÄKYMÄT (VIEWS)
+
+- `nakyma_kaynnissa_olevat_kurssit` – Käynnissä olevat kurssit ja ilmoittautuneet  
+- `nakyma_tulevat_kurssit` – Tulevat kurssit ja vapaat paikat  
+- `nakyma_ylibuukatut_kurssit` – Kurssit, joissa ilmoittautuneita enemmän kuin kapasiteetti  
+- `nakyma_kurssit_taydellinen` – Kurssien tiedot, opettaja, tila, ilmoittautuneet ja vapaita paikkoja  
+- `nakyma_opettajat_kurssit` – Opettajien tiedot ja heidän kurssinsa  
+- `nakyma_opiskelijat_kurssit` – Opiskelijan kurssit ja opettajat  
+- `nakyma_opiskelijat_aktiivisuus` – Opiskelijan aktiivisuuskurssimäärien perusteella  
+- `nakyma_tilat_kaytto` – Tilojen käyttöaste ja status  
+
+---
 
 
-RELAATIOT
+## ASENNUS
 
-opettajat (1) → (n) kurssit
-tilat (1) → (n) kurssit
-oppilaat (n) ↔ (n) kurssit (ilmoittautuminen-välitaulu)
+### TIETOKANNAN TUONTI (XAMPP)
+1. Käynnistä XAMPP (Apache + MySQL)  
+2. Avaa phpMyAdmin: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)  
+3. Luo uusi tietokanta: `kurssienhallinta`  
+4. Valitse tietokanta  
+5. Klikkaa **Import**  
+6. Valitse tiedosto: `kurssienhallinta.sql`  
+7. Klikkaa **Go**  
 
+---
 
-ASENNUS
+### TIETOKANTAYHTEYDEN KONFIGUROINTI
 
-TIETOKANNAN TUONTI
+Luo tiedosto `config/db_connect.php`:
 
-XAMPP:
-1. Käynnistä XAMPP (Apache + MySQL)
-2. Avaa phpMyAdmin: http://localhost/phpmyadmin
-3. Luo uusi tietokanta: kurssienhallinta
-4. Valitse tietokanta
-5. Klikkaa "Import"
-6. Valitse tiedosto: kurssienhallinta.sql
-7. Klikkaa "Go"
-
-
-TIETOKANTAYHTEYDEN KONFIGUROINTI
-
-Luo tiedosto config/db_connect.php:
-
+```php
 <?php
 $host = 'localhost';
-$dbname = 'kurssienhallinta';
-$username = 'root';
-$password = '';
+$db   = 'kurssienhallinta';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
 
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
     die("Tietokantayhteys epäonnistui: " . $e->getMessage());
 }
 ?>
+```
 
 
+### TOIMINNALLISUUDET
 
-
-TOIMINNALLISUUDET
-
-KÄYTTÄJÄN NÄKYMÄT
+### KÄYTTÄJÄN NÄKYMÄT
 
 Kurssinäkymä: Näyttää kurssin tiedot, opettajan, tilan ja ilmoittautuneet opiskelijat
 Opiskelijanäkymä: Näyttää opiskelijan tiedot ja kurssit joille hän on ilmoittautunut
@@ -104,7 +123,7 @@ Opettajanäkymä: Näyttää opettajan tiedot ja kurssit joita hän opettaa
 Tilanäkymä: Näyttää tilan tiedot ja kurssit jotka pidetään tilassa (+ kapasiteettivaroitus)
 
 
-CRUD-TOIMINNOT
+### CRUD-TOIMINNOT
 
 Lisää/muokkaa/poista opettajia
 Lisää/muokkaa/poista oppilaita
@@ -113,7 +132,7 @@ Lisää/muokkaa/poista tiloja
 Lisää/poista kurssi-ilmoittautumisia
 
 
-TESTIDATA
+### TESTIDATA
 
 Tietokannassa on valmiina:
 - 5 opettajaa
@@ -123,7 +142,7 @@ Tietokannassa on valmiina:
 - 17 kurssi-ilmoittautumista
 
 
-TEKNOLOGIAT
+### TEKNOLOGIAT
 
 Tietokanta: MySQL / MariaDB
 Backend: PHP 8.x
@@ -158,14 +177,14 @@ kurssienhallinta/
 `````
 
 
-KÄYNNISTYS
+### KÄYNNISTYS
 
 1. Kopioi projektikansio: C:\xampp\htdocs\kurssienhallinta\
 2. Tuo tietokanta (ks. Asennus)
 3. Avaa selaimessa: http://localhost/kurssienhallinta/
 
 
-KEHITYSIDEOITA
+### KEHITYSIDEOITA
 
 Käyttäjien kirjautuminen (admin/opiskelija)
 
@@ -180,7 +199,7 @@ Ilmoittautumisen vahvistusviestit
 Raporttien vienti PDF:ksi
 
 
-YHTEYSTIEDOT
+### YHTEYSTIEDOT
 
 Projekti tehty osana Juhannuskukkulan tietokantakurssia.
 
