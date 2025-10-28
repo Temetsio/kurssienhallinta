@@ -117,38 +117,44 @@ try {
 
 ### KÄYTTÄJÄN NÄKYMÄT
 
+```
 Kurssinäkymä: Näyttää kurssin tiedot, opettajan, tilan ja ilmoittautuneet opiskelijat
 Opiskelijanäkymä: Näyttää opiskelijan tiedot ja kurssit joille hän on ilmoittautunut
 Opettajanäkymä: Näyttää opettajan tiedot ja kurssit joita hän opettaa
 Tilanäkymä: Näyttää tilan tiedot ja kurssit jotka pidetään tilassa (+ kapasiteettivaroitus)
+```
 
 
 ### CRUD-TOIMINNOT
 
+```
 Lisää/muokkaa/poista opettajia
 Lisää/muokkaa/poista oppilaita
 Lisää/muokkaa/poista kursseja
 Lisää/muokkaa/poista tiloja
 Lisää/poista kurssi-ilmoittautumisia
-
+```
 
 ### TESTIDATA
 
+```
 Tietokannassa on valmiina:
 - 5 opettajaa
 - 5 tilaa (kapasiteetit: 20-40 oppilasta)
 - 5 kurssia (eri aineita)
 - 8 oppilasta (vuosikurssit 1-3)
 - 17 kurssi-ilmoittautumista
+```
 
 
 ### TEKNOLOGIAT
 
+```
 Tietokanta: MySQL / MariaDB
 Backend: PHP 8.x
 Frontend: HTML5, CSS3, JavaScript
 Palvelin: Apache (XAMPP)
-
+```
 
 PROJEKTIRAKENNE
 `````
@@ -178,14 +184,15 @@ kurssienhallinta/
 
 
 ### KÄYNNISTYS
-
+```
 1. Kopioi projektikansio: C:\xampp\htdocs\kurssienhallinta\
 2. Tuo tietokanta (ks. Asennus)
 3. Avaa selaimessa: http://localhost/kurssienhallinta/
-
+```
 
 ### KEHITYSIDEOITA
 
+```
 Käyttäjien kirjautuminen (admin/opiskelija)
 
 Arvosanojen hallinta
@@ -198,6 +205,7 @@ Ilmoittautumisen vahvistusviestit
 
 Raporttien vienti PDF:ksi
 
+```
 
 ### YHTEYSTIEDOT
 
