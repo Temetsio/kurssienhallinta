@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
   $opettaja = $stmt->fetch() ?: $opettaja;
 }
 
-if ($_SERVER['REQUEST_METHOD']==='POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = [$_POST['etunimi'], $_POST['sukunimi'], $_POST['aine']];
   if (!empty($_POST['opettaja_id'])) {
     $data[] = $_POST['opettaja_id'];
@@ -28,25 +28,45 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
   exit;
 }
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8"><title>Opettaja</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="p-4">
-<a href="opettajat.php" class="btn btn-secondary mb-3">← Takaisin</a>
-<h1><?= $opettaja['opettaja_id'] ? 'Muokkaa opettajaa' : 'Lisää opettaja' ?></h1>
-<form method="post">
-  <input type="hidden" name="opettaja_id" value="<?= htmlspecialchars($opettaja['opettaja_id']) ?>">
-  <div class="mb-3">
-    <label class="form-label">Etunimi</label>
-    <input type="text" name="etunimi" class="form-control" value="<?= htmlspecialchars($opettaja['etunimi']) ?>" required>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= $opettaja['opettaja_id'] ? 'Muokkaa opettajaa' : 'Lisää opettaja' ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+      <a href="admin.php">Admin</a>
+    </div>
+
+    <a href="opettajat.php" class="back">← Takaisin</a>
+    <h1 class="page-title">
+      <?= $opettaja['opettaja_id'] ? 'Muokkaa opettajaa' : 'Lisää uusi opettaja' ?>
+    </h1>
+
+    <form method="post" class="card form">
+      <input type="hidden" name="opettaja_id" value="<?= htmlspecialchars($opettaja['opettaja_id']) ?>">
+
+      <label>Etunimi
+        <input type="text" name="etunimi" value="<?= htmlspecialchars($opettaja['etunimi']) ?>" required>
+      </label>
+
+      <label>Sukunimi
+        <input type="text" name="sukunimi" value="<?= htmlspecialchars($opettaja['sukunimi']) ?>" required>
+      </label>
+
+      <label>Aine
+        <input type="text" name="aine" value="<?= htmlspecialchars($opettaja['aine']) ?>" required>
+      </label>
+
+      <button class="button">💾 Tallenna</button>
+    </form>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Sukunimi</label>
-    <input type="text" name="sukunimi" class="form-control" value="<?= htmlspecialchars($opettaja['sukunimi']) ?>" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Aine</label>
-    <input type="text" name="aine" class="form-control" value="<?= htmlspecialchars($opettaja['aine']) ?>" required>
-  </div>
-  <button class="btn btn-primary">Tallenna</button>
-</form>
-</body></html>
+</body>
+</html>

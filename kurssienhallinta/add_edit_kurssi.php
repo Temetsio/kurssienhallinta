@@ -46,63 +46,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html>
 <html lang="fi">
 <head>
-<meta charset="utf-8">
-<title><?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää kurssi' ?></title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title><?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää kurssi' ?></title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="p-4">
-<a href="index.php" class="btn btn-secondary mb-3">← Takaisin</a>
-<h1><?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää uusi kurssi' ?></h1>
-
-<form method="post">
-  <input type="hidden" name="kurssi_id" value="<?= htmlspecialchars($kurssi['kurssi_id']) ?>">
-  
-  <div class="mb-3">
-    <label class="form-label">Kurssin tunnus</label>
-    <input type="text" name="kurssin_tunnus" class="form-control" value="<?= htmlspecialchars($kurssi['kurssin_tunnus']) ?>" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Kurssin nimi</label>
-    <input type="text" name="kurssi_nimi" class="form-control" value="<?= htmlspecialchars($kurssi['kurssi_nimi']) ?>" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Kuvaus</label>
-    <textarea name="kurssikuvaus" class="form-control"><?= htmlspecialchars($kurssi['kurssikuvaus']) ?></textarea>
-  </div>
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Alkaa</label>
-      <input type="date" name="aloituspaiva" class="form-control" value="<?= htmlspecialchars($kurssi['aloituspaiva']) ?>" required>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+      <a href="admin.php">Admin</a>
     </div>
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Loppuu</label>
-      <input type="date" name="lopetuspaiva" class="form-control" value="<?= htmlspecialchars($kurssi['lopetuspaiva']) ?>" required>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Opettaja</label>
-    <select name="opettaja_id" class="form-select" required>
-      <option value="">-- Valitse opettaja --</option>
-      <?php foreach ($opettajat as $o): ?>
-        <option value="<?= $o['opettaja_id'] ?>" <?= $kurssi['opettaja_id']==$o['opettaja_id']?'selected':'' ?>>
-          <?= htmlspecialchars($o['etunimi'].' '.$o['sukunimi']) ?>
-        </option>
-      <?php endforeach; ?>
-    </select>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Tila</label>
-    <select name="tila_id" class="form-select" required>
-      <option value="">-- Valitse tila --</option>
-      <?php foreach ($tilat as $t): ?>
-        <option value="<?= $t['tila_id'] ?>" <?= $kurssi['tila_id']==$t['tila_id']?'selected':'' ?>>
-          <?= htmlspecialchars($t['tila_nimi']) ?>
-        </option>
-      <?php endforeach; ?>
-    </select>
-  </div>
 
-  <button class="btn btn-primary">Tallenna</button>
-</form>
+    <a class="back" href="index.php">← Takaisin</a>
+    <h1 class="page-title">
+      <?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää uusi kurssi' ?>
+    </h1>
+
+    <form method="post" class="card form">
+      <input type="hidden" name="kurssi_id" value="<?= htmlspecialchars($kurssi['kurssi_id']) ?>">
+
+      <label>Kurssin tunnus
+        <input type="text" name="kurssin_tunnus" value="<?= htmlspecialchars($kurssi['kurssin_tunnus']) ?>" required>
+      </label>
+
+      <label>Kurssin nimi
+        <input type="text" name="kurssi_nimi" value="<?= htmlspecialchars($kurssi['kurssi_nimi']) ?>" required>
+      </label>
+
+      <label>Kuvaus
+        <textarea name="kurssikuvaus" rows="4"><?= htmlspecialchars($kurssi['kurssikuvaus']) ?></textarea>
+      </label>
+
+      <div class="form-row">
+        <label>Alkaa
+          <input type="date" name="aloituspaiva" value="<?= htmlspecialchars($kurssi['aloituspaiva']) ?>" required>
+        </label>
+
+        <label>Loppuu
+          <input type="date" name="lopetuspaiva" value="<?= htmlspecialchars($kurssi['lopetuspaiva']) ?>" required>
+        </label>
+      </div>
+
+      <label>Opettaja
+        <select name="opettaja_id" required>
+          <option value="">-- Valitse opettaja --</option>
+          <?php foreach ($opettajat as $o): ?>
+            <option value="<?= $o['opettaja_id'] ?>" <?= $kurssi['opettaja_id']==$o['opettaja_id']?'selected':'' ?>>
+              <?= htmlspecialchars($o['etunimi'].' '.$o['sukunimi']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+
+      <label>Tila
+        <select name="tila_id" required>
+          <option value="">-- Valitse tila --</option>
+          <?php foreach ($tilat as $t): ?>
+            <option value="<?= $t['tila_id'] ?>" <?= $kurssi['tila_id']==$t['tila_id']?'selected':'' ?>>
+              <?= htmlspecialchars($t['tila_nimi']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+
+      <button class="button">💾 Tallenna</button>
+    </form>
+  </div>
 </body>
 </html>

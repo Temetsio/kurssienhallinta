@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
   $oppilas = $stmt->fetch() ?: $oppilas;
 }
 
-if ($_SERVER['REQUEST_METHOD']==='POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = [$_POST['etunimi'], $_POST['sukunimi'], $_POST['syntymaaika'], $_POST['vuosikurssi']];
   if (!empty($_POST['oppilas_id'])) {
     $data[] = $_POST['oppilas_id'];
@@ -29,30 +29,49 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
   exit;
 }
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8">
-<title>Oppilas</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="p-4">
-<a href="oppilaat.php" class="btn btn-secondary mb-3">← Takaisin</a>
-<h1><?= $oppilas['oppilas_id'] ? 'Muokkaa oppilasta' : 'Lisää oppilas' ?></h1>
-<form method="post">
-  <input type="hidden" name="oppilas_id" value="<?= htmlspecialchars($oppilas['oppilas_id']) ?>">
-  <div class="mb-3">
-    <label class="form-label">Etunimi</label>
-    <input type="text" name="etunimi" class="form-control" value="<?= htmlspecialchars($oppilas['etunimi']) ?>" required>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= $oppilas['oppilas_id'] ? 'Muokkaa oppilasta' : 'Lisää oppilas' ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+      <a href="admin.php">Admin</a>
+    </div>
+
+    <a href="oppilaat.php" class="back">← Takaisin</a>
+    <h1 class="page-title">
+      <?= $oppilas['oppilas_id'] ? 'Muokkaa oppilasta' : 'Lisää uusi oppilas' ?>
+    </h1>
+
+    <form method="post" class="card form">
+      <input type="hidden" name="oppilas_id" value="<?= htmlspecialchars($oppilas['oppilas_id']) ?>">
+
+      <label>Etunimi
+        <input type="text" name="etunimi" value="<?= htmlspecialchars($oppilas['etunimi']) ?>" required>
+      </label>
+
+      <label>Sukunimi
+        <input type="text" name="sukunimi" value="<?= htmlspecialchars($oppilas['sukunimi']) ?>" required>
+      </label>
+
+      <label>Syntymäaika
+        <input type="date" name="syntymaaika" value="<?= htmlspecialchars($oppilas['syntymaaika']) ?>" required>
+      </label>
+
+      <label>Vuosikurssi
+        <input type="number" name="vuosikurssi" min="1" max="3" value="<?= htmlspecialchars($oppilas['vuosikurssi']) ?>" required>
+      </label>
+
+      <button class="button">💾 Tallenna</button>
+    </form>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Sukunimi</label>
-    <input type="text" name="sukunimi" class="form-control" value="<?= htmlspecialchars($oppilas['sukunimi']) ?>" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Syntymäaika</label>
-    <input type="date" name="syntymaaika" class="form-control" value="<?= htmlspecialchars($oppilas['syntymaaika']) ?>" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Vuosikurssi</label>
-    <input type="number" name="vuosikurssi" min="1" max="3" class="form-control" value="<?= htmlspecialchars($oppilas['vuosikurssi']) ?>" required>
-  </div>
-  <button class="btn btn-primary">Tallenna</button>
-</form>
-</body></html>
+</body>
+</html>

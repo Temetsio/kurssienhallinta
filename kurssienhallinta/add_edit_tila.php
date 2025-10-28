@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
   $tila = $stmt->fetch() ?: $tila;
 }
 
-if ($_SERVER['REQUEST_METHOD']==='POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = [$_POST['tila_nimi'], $_POST['paikkoja']];
   if (!empty($_POST['tila_id'])) {
     $data[] = $_POST['tila_id'];
@@ -27,21 +27,41 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
   exit;
 }
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8"><title>Tila</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="p-4">
-<a href="tilat.php" class="btn btn-secondary mb-3">← Takaisin</a>
-<h1><?= $tila['tila_id'] ? 'Muokkaa tilaa' : 'Lisää tila' ?></h1>
-<form method="post">
-  <input type="hidden" name="tila_id" value="<?= htmlspecialchars($tila['tila_id']) ?>">
-  <div class="mb-3">
-    <label class="form-label">Tilan nimi</label>
-    <input type="text" name="tila_nimi" class="form-control" value="<?= htmlspecialchars($tila['tila_nimi']) ?>" required>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= $tila['tila_id'] ? 'Muokkaa tilaa' : 'Lisää tila' ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php" class="active">Tilat</a>
+      <a href="admin.php">Admin</a>
+    </div>
+
+    <a href="tilat.php" class="back">← Takaisin</a>
+    <h1 class="page-title">
+      <?= $tila['tila_id'] ? 'Muokkaa tilaa' : 'Lisää uusi tila' ?>
+    </h1>
+
+    <form method="post" class="card form">
+      <input type="hidden" name="tila_id" value="<?= htmlspecialchars($tila['tila_id']) ?>">
+
+      <label>Tilan nimi
+        <input type="text" name="tila_nimi" value="<?= htmlspecialchars($tila['tila_nimi']) ?>" required>
+      </label>
+
+      <label>Kapasiteetti (paikkoja)
+        <input type="number" name="paikkoja" value="<?= htmlspecialchars($tila['paikkoja']) ?>" required>
+      </label>
+
+      <button class="button">💾 Tallenna</button>
+    </form>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Kapasiteetti (paikkoja)</label>
-    <input type="number" name="paikkoja" class="form-control" value="<?= htmlspecialchars($tila['paikkoja']) ?>" required>
-  </div>
-  <button class="btn btn-primary">Tallenna</button>
-</form>
-</body></html>
+</body>
+</html>
