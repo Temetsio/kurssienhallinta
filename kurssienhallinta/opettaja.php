@@ -23,26 +23,49 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$opettaja_id]);
 $kurssit = $stmt->fetchAll();
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8"><title><?=htmlspecialchars($op['sukunimi'].' '.$op['etunimi'])?></title>
-<style>body{font-family:Arial;max-width:900px;margin:20px auto}table{width:100%;border-collapse:collapse}th,td{padding:8px;border:1px solid #ddd}</style></head>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= htmlspecialchars($op['sukunimi'].' '.$op['etunimi']) ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-  <a href="opettajat.php">← Takaisin</a>
-  <h1><?=htmlspecialchars($op['sukunimi'].' '.$op['etunimi'])?></h1>
-  <p><strong>Aine:</strong> <?=htmlspecialchars($op['aine'])?></p>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+    </div>
 
-  <h2>Opettajan kurssit</h2>
-  <table>
-    <thead><tr><th>Kurssi</th><th>Alku</th><th>Loppu</th><th>Tila</th></tr></thead>
-    <tbody>
-      <?php if (!$kurssit): ?><tr><td colspan="4">Ei kursseja.</td></tr>
-      <?php else: foreach($kurssit as $k): ?>
-        <tr>
-          <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?=htmlspecialchars($k['kurssi_nimi'])?></a></td>
-          <td><?=htmlspecialchars($k['aloituspaiva'])?></td>
-          <td><?=htmlspecialchars($k['lopetuspaiva'])?></td>
-          <td><?=htmlspecialchars($k['tila_nimi'] ?? '—')?></td>
-        </tr>
-      <?php endforeach; endif; ?>
-    </tbody>
-  </table>
-</body></html>
+    <a class="back" href="opettajat.php">← Takaisin</a>
+    <h1 class="page-title"><?= htmlspecialchars($op['sukunimi'].' '.$op['etunimi']) ?></h1>
+
+    <div class="card">
+      <div class="meta">
+        <div><strong>Aine:</strong> <span class="badge"><?= htmlspecialchars($op['aine']) ?></span></div>
+      </div>
+    </div>
+
+    <h2 style="margin:22px 0 10px">Opettajan kurssit</h2>
+    <div class="card table-wrap">
+      <table>
+        <thead><tr><th>Kurssi</th><th>Alku</th><th>Loppu</th><th>Tila</th></tr></thead>
+        <tbody>
+          <?php if (!$kurssit): ?>
+            <tr><td colspan="4" class="muted">Ei kursseja.</td></tr>
+          <?php else: foreach($kurssit as $k): ?>
+            <tr>
+              <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
+              <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
+              <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+              <td><?= htmlspecialchars($k['tila_nimi'] ?? '—') ?></td>
+            </tr>
+          <?php endforeach; endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

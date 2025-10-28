@@ -25,26 +25,49 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$oppilas_id]);
 $kurssit = $stmt->fetchAll();
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8"><title><?=htmlspecialchars($student['sukunimi'].' '.$student['etunimi'])?></title>
-<style>body{font-family:Arial;max-width:900px;margin:20px auto}table{width:100%;border-collapse:collapse}th,td{padding:8px;border:1px solid #ddd}</style></head>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= htmlspecialchars($student['sukunimi'].' '.$student['etunimi']) ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-  <a href="oppilaat.php">← Takaisin</a>
-  <h1><?=htmlspecialchars($student['sukunimi'].' '.$student['etunimi'])?></h1>
-  <p><strong>Syntymäaika:</strong> <?=htmlspecialchars($student['syntymaaika'])?><br>
-     <strong>Vuosikurssi:</strong> <?=htmlspecialchars($student['vuosikurssi'])?></p>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+    </div>
 
-  <h2>Opiskelijan kurssit</h2>
-  <table>
-    <thead><tr><th>Kurssi</th><th>Aloituspäivä</th><th>Opettaja</th></tr></thead>
-    <tbody>
-      <?php if (!$kurssit): ?><tr><td colspan="3">Ei kursseja.</td></tr>
-      <?php else: foreach($kurssit as $k): ?>
-        <tr>
-          <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?=htmlspecialchars($k['kurssi_nimi'])?></a></td>
-          <td><?=htmlspecialchars($k['aloituspaiva'])?></td>
-          <td><?=htmlspecialchars(trim(($k['op_etunimi']??'').' '.($k['op_sukunimi']??''))) ?: '—'?></td>
-        </tr>
-      <?php endforeach; endif; ?>
-    </tbody>
-  </table>
-</body></html>
+    <a class="back" href="oppilaat.php">← Takaisin</a>
+    <h1 class="page-title"><?= htmlspecialchars($student['sukunimi'].' '.$student['etunimi']) ?></h1>
+
+    <div class="card">
+      <div class="meta">
+        <div><strong>Syntymäaika:</strong> <span class="badge"><?= htmlspecialchars($student['syntymaaika']) ?></span></div>
+        <div><strong>Vuosikurssi:</strong> <span class="badge"><?= htmlspecialchars($student['vuosikurssi']) ?></span></div>
+      </div>
+    </div>
+
+    <h2 style="margin:22px 0 10px">Opiskelijan kurssit</h2>
+    <div class="card table-wrap">
+      <table>
+        <thead><tr><th>Kurssi</th><th>Aloituspäivä</th><th>Opettaja</th></tr></thead>
+        <tbody>
+          <?php if (!$kurssit): ?>
+            <tr><td colspan="3" class="muted">Ei kursseja.</td></tr>
+          <?php else: foreach($kurssit as $k): ?>
+            <tr>
+              <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
+              <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
+              <td><?= htmlspecialchars(trim(($k['op_etunimi']??'').' '.($k['op_sukunimi']??''))) ?: '—' ?></td>
+            </tr>
+          <?php endforeach; endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

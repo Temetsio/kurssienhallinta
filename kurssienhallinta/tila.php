@@ -29,34 +29,51 @@ $kurssit = $stmt->fetchAll();
 
 $cap = (int)$tila['paikkoja'];
 ?>
-<!doctype html><html lang="fi"><head><meta charset="utf-8"><title><?=htmlspecialchars($tila['tila_nimi'])?></title>
-<style>
-  body{font-family:Arial;max-width:900px;margin:20px auto}
-  table{width:100%;border-collapse:collapse}
-  th,td{padding:8px;border:1px solid #ddd}
-  .warn{background:#fff3cd}
-  .badge{display:inline-block;padding:2px 6px;border-radius:4px;background:#ffe08a}
-</style></head>
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= htmlspecialchars($tila['tila_nimi']) ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-  <a href="tilat.php">← Takaisin</a>
-  <h1><?=htmlspecialchars($tila['tila_nimi'])?></h1>
-  <p><strong>Kapasiteetti:</strong> <?=$cap?></p>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+    </div>
 
-  <h2>Tilassa pidettävät kurssit</h2>
-  <table>
-    <thead><tr><th>Kurssi</th><th>Opettaja</th><th>Alku</th><th>Loppu</th><th>Osallistujia</th><th></th></tr></thead>
-    <tbody>
-      <?php if (!$kurssit): ?><tr><td colspan="6">Ei kursseja.</td></tr>
-      <?php else: foreach($kurssit as $k): $over = (int)$k['osallistujia'] > $cap; ?>
-        <tr class="<?= $over ? 'warn' : '' ?>">
-          <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?=htmlspecialchars($k['kurssi_nimi'])?></a></td>
-          <td><?=htmlspecialchars($k['opettaja_nimi'] ?? '—')?></td>
-          <td><?=htmlspecialchars($k['aloituspaiva'])?></td>
-          <td><?=htmlspecialchars($k['lopetuspaiva'])?></td>
-          <td><?= (int)$k['osallistujia'] ?> / <?=$cap?></td>
-          <td><?= $over ? '<span class="badge">⚠️</span>' : '' ?></td>
-        </tr>
-      <?php endforeach; endif; ?>
-    </tbody>
-  </table>
-</body></html>
+    <a class="back" href="tilat.php">← Takaisin</a>
+    <h1 class="page-title"><?= htmlspecialchars($tila['tila_nimi']) ?></h1>
+
+    <div class="card">
+      <div class="meta">
+        <div><strong>Kapasiteetti:</strong> <span class="badge"><?= $cap ?> paikkaa</span></div>
+      </div>
+    </div>
+
+    <h2 style="margin:22px 0 10px">Tilassa pidettävät kurssit</h2>
+    <div class="card table-wrap">
+      <table>
+        <thead><tr><th>Kurssi</th><th>Opettaja</th><th>Alku</th><th>Loppu</th><th>Osallistujia</th><th></th></tr></thead>
+        <tbody>
+          <?php if (!$kurssit): ?>
+            <tr><td colspan="6" class="muted">Ei kursseja.</td></tr>
+          <?php else: foreach($kurssit as $k): $over = (int)$k['osallistujia'] > $cap; ?>
+            <tr class="<?= $over ? 'warn' : '' ?>">
+              <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
+              <td><?= htmlspecialchars($k['opettaja_nimi'] ?? '—') ?></td>
+              <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
+              <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+              <td><?= (int)$k['osallistujia'] ?> / <?= $cap ?></td>
+              <td><?= $over ? '<span class="badge">⚠️</span>' : '' ?></td>
+            </tr>
+          <?php endforeach; endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
