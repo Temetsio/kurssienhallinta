@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2025 at 10:32 AM
+-- Generation Time: Oct 28, 2025 at 01:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -176,32 +176,32 @@ INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuva
 (5, 'TIK501', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-02-05', '2025-06-10', 5, 5),
 (6, 'MAT201', 'Matematiikka 2', 'Trigonometria ja analyyttinen geometria', '2025-01-15', '2025-05-30', 1, 1),
 (7, 'OHJ301', 'Ohjelmointi 2', 'Olioohjelmointi Java-kielellä', '2025-01-20', '2025-05-25', 2, 2),
-(12, 'MAT301', 'Matematiikka 3', 'Differentiaali- ja integraalilaskenta', '2025-02-01', '2025-06-15', 1, 1),
-(14, 'OHJ401', 'Web-ohjelmointi', 'HTML, CSS ja JavaScript', '2025-02-05', '2025-06-10', 2, 2),
-(15, 'FYS201', 'Fysiikka 2', 'Sähköoppi ja magnetismi', '2025-01-10', '2025-05-20', 3, 3),
-(16, 'FYS401', 'Fysiikka 4', 'Aaltoliike ja optiikka', '2025-02-15', '2025-06-20', 3, 3),
-(17, 'KEM201', 'Kemia 2', 'Epäorgaaninen kemia ja hapot', '2025-01-25', '2025-05-30', 4, 4),
-(18, 'KEM301', 'Kemia 3', 'Orgaaninen kemia', '2025-02-10', '2025-06-05', 4, 4),
-(19, 'TIK201', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-01-15', '2025-05-15', 5, 5),
-(20, 'TIK301', 'Tietoverkot', 'Internet ja verkkoprotokollat', '2025-02-20', '2025-06-10', 5, 5),
+(12, 'MAT301', 'Matematiikka 3', 'Differentiaali- ja integraalilaskenta', '2025-02-01', '2025-06-15', 1, 15),
+(14, 'OHJ401', 'Web-ohjelmointi', 'HTML, CSS ja JavaScript', '2025-02-05', '2025-06-10', 2, 14),
+(15, 'FYS201', 'Fysiikka 2', 'Sähköoppi ja magnetismi', '2025-01-10', '2025-05-20', 3, 13),
+(16, 'FYS401', 'Fysiikka 4', 'Aaltoliike ja optiikka', '2025-02-15', '2025-06-20', 3, 12),
+(17, 'KEM201', 'Kemia 2', 'Epäorgaaninen kemia ja hapot', '2025-01-25', '2025-05-30', 4, 11),
+(18, 'KEM301', 'Kemia 3', 'Orgaaninen kemia', '2025-02-10', '2025-06-05', 4, 10),
+(19, 'TIK201', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-01-15', '2025-05-15', 5, 9),
+(20, 'TIK301', 'Tietoverkot', 'Internet ja verkkoprotokollat', '2025-02-20', '2025-06-10', 5, 8),
 (21, 'KUV101', 'Kuvataide 1', 'Piirustus ja maalaus', '2025-03-01', '2025-06-25', 6, 1),
 (22, 'KUV201', 'Kuvataide 2', 'Digitaalinen kuvankäsittely', '2025-01-20', '2025-05-20', 14, 2),
 (23, 'ÄI201', 'Äidinkieli 2', 'Kielioppi ja kirjoittaminen', '2025-02-15', '2025-06-15', 7, 3),
 (24, 'ÄI301', 'Kirjallisuus 1', 'Suomalainen kirjallisuus', '2025-01-30', '2025-05-30', 10, 3),
 (25, 'YH101', 'Yhteiskuntaoppi 1', 'Suomen yhteiskuntajärjestelmä', '2025-03-05', '2025-06-20', 8, 4),
-(26, 'RUO201', 'Ruotsi 2', 'Keskustelutaidot', '2025-02-01', '2025-05-25', 9, 5),
+(26, 'RUO201', 'Ruotsi 2', 'Keskustelutaidot', '2025-02-01', '2025-05-25', 9, 13),
 (27, 'RUO301', 'Ruotsi 3', 'Kirjoittaminen ja ymmärtäminen', '2025-03-10', '2025-06-10', 9, 5),
-(28, 'HIS201', 'Historia 2', 'Suomen itsenäisyys', '2025-01-15', '2025-05-15', 11, 1),
-(29, 'HIS301', 'Historia 3', 'Toinen maailmansota', '2025-02-20', '2025-06-05', 11, 1),
+(28, 'HIS201', 'Historia 2', 'Suomen itsenäisyys', '2025-01-15', '2025-05-15', 11, 15),
+(29, 'HIS301', 'Historia 3', 'Toinen maailmansota', '2025-02-20', '2025-06-05', 11, 14),
 (30, 'ENG301', 'Englanti 3', 'Keskustelutaidot', '2025-01-25', '2025-05-20', 12, 2),
 (31, 'ENG401', 'Englanti 4', 'Akateeminen kirjoittaminen', '2025-03-01', '2025-06-15', 13, 2),
-(32, 'KÄS101', 'Käsityö 1', 'Puutyöt', '2025-02-15', '2025-06-20', 15, 3),
+(32, 'KÄS101', 'Käsityö 1', 'Puutyöt', '2025-02-15', '2025-06-20', 15, 6),
 (33, 'MAA101', 'Maantieto 1', 'Fyysinen maantieto', '2025-01-20', '2025-05-25', 16, 4),
-(34, 'US101', 'Uskonto 1', 'Maailmanuskonnot', '2025-03-05', '2025-06-25', 17, 5),
+(34, 'US101', 'Uskonto 1', 'Maailmanuskonnot', '2025-03-05', '2025-06-25', 17, 14),
 (35, 'US201', 'Uskonto 2', 'Etiikka ja moraali', '2025-02-10', '2025-06-10', 18, 5),
 (36, 'LII201', 'Liikunta 2', 'Joukkuelajit', '2025-01-15', '2025-05-30', 19, 1),
-(37, 'BIO201', 'Biologia 2', 'Ekologia ja ympäristö', '2025-02-01', '2025-06-15', 20, 2),
-(38, 'TEST999', 'Ylitäysi testikaurssi', 'Testi kapasiteetille', '2025-03-01', '2025-06-01', 1, 4);
+(37, 'BIO201', 'Biologia 2', 'Ekologia ja ympäristö', '2025-02-01', '2025-06-15', 20, 7),
+(38, 'TEST999', 'Ylitäysi testikaurssi', 'Testi kapasiteetille', '2025-03-01', '2025-06-01', 1, 7);
 
 -- --------------------------------------------------------
 
