@@ -14,29 +14,47 @@ $kurssit = $stmt->fetchAll();
 <head>
   <meta charset="utf-8">
   <title>Kurssien hallinta</title>
-  <style>body{font-family:Arial;max-width:900px;margin:20px auto} table{width:100%;border-collapse:collapse} th,td{padding:8px;border:1px solid #ddd}</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Kurssit</h1>
-  <p><a href="oppilaat.php">Oppilaat</a> | <a href="opettajat.php">Opettajat</a> | <a href="tilat.php">Tilat</a></p>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+    </div>
 
-  <table>
-    <thead>
-      <tr><th>Tunnus</th><th>Nimi</th><th>Opettaja</th><th>Tila</th><th>Alkaa</th><th>Loppuu</th><th>Toiminnot</th></tr>
-    </thead>
-    <tbody>
-      <?php foreach($kurssit as $k): ?>
-      <tr>
-        <td><?=htmlspecialchars($k['kurssin_tunnus'])?></td>
-        <td><?=htmlspecialchars($k['kurssi_nimi'])?></td>
-        <td><?=htmlspecialchars($k['op_etunimi'] . ' ' . $k['op_sukunimi'])?></td>
-        <td><?=htmlspecialchars($k['tila_nimi'] ?? $k['tila_nimi'])?></td>
-        <td><?=htmlspecialchars($k['aloituspaiva'])?></td>
-        <td><?=htmlspecialchars($k['lopetuspaiva'])?></td>
-        <td><a href="kurssi.php?id=<?= $k['kurssi_id'] ?>">Näytä</a></td>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+    <h1 class="page-title">Kurssit</h1>
+
+    <div class="card table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tunnus</th>
+            <th>Nimi</th>
+            <th>Opettaja</th>
+            <th>Tila</th>
+            <th>Alkaa</th>
+            <th>Loppuu</th>
+            <th>Toiminnot</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach($kurssit as $k): ?>
+          <tr>
+            <td><?= htmlspecialchars($k['kurssin_tunnus']) ?></td>
+            <td><?= htmlspecialchars($k['kurssi_nimi']) ?></td>
+            <td><?= htmlspecialchars($k['op_etunimi'] . ' ' . $k['op_sukunimi']) ?></td>
+            <td><?= htmlspecialchars($k['tila_nimi']) ?></td>
+            <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
+            <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+            <td><a href="kurssi.php?id=<?= $k['kurssi_id'] ?>">Näytä</a></td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>

@@ -14,7 +14,7 @@ $stmt = $pdo->prepare("SELECT k.*, o.etunimi AS op_etunimi, o.sukunimi AS op_suk
     WHERE k.kurssi_id = ?");
 $stmt->execute([$kurssi_id]);
 $kurssi = $stmt->fetch();
-if (!$kurssi) die('Kurssiä ei löytynyt.');
+if (!$kurssi) die('Kurssia ei löytynyt.');
 
 $stmt = $pdo->prepare("SELECT i.ilmoittautuminen_id, o.oppilas_id, o.etunimi, o.sukunimi, i.ilmoittautumispaiva
     FROM ilmoittautuminen i
@@ -27,53 +27,86 @@ $ilmo = $stmt->fetchAll();
 $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi FROM oppilaat ORDER BY sukunimi")->fetchAll();
 ?>
 <!doctype html>
-<html lang="fi"><head><meta charset="utf-8"><title><?=htmlspecialchars($kurssi['kurssi_nimi'])?></title></head><body>
-  <a href="index.php">← Takaisin</a>
-  <h1><?=htmlspecialchars($kurssi['kurssi_nimi'])?></h1>
-  <p><strong>Tunnus:</strong> <?=htmlspecialchars($kurssi['kurssin_tunnus'])?><br>
-     <strong>Opettaja:</strong> <?=htmlspecialchars($kurssi['op_etunimi'].' '.$kurssi['op_sukunimi'])?><br>
-     <strong>Tila:</strong> <?=htmlspecialchars($kurssi['tila_nimi'])?><br>
-     <strong>Ajanjakso:</strong> <?=htmlspecialchars($kurssi['aloituspaiva'])?> — <?=htmlspecialchars($kurssi['lopetuspaiva'])?></p>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title><?= htmlspecialchars($kurssi['kurssi_nimi']) ?></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.php">Kurssit</a>
+      <a href="oppilaat.php">Oppilaat</a>
+      <a href="opettajat.php">Opettajat</a>
+      <a href="tilat.php">Tilat</a>
+    </div>
 
-  <?php if (!empty($kurssi['kurssikuvaus'])): ?>
-    <h3>Kurssikuvaus</h3>
-    <p><?=nl2br(htmlspecialchars($kurssi['kurssikuvaus']))?></p>
-  <?php endif; ?>
+    <a class="back" href="index.php">← Takaisin</a>
+    <h1 class="page-title"><?= htmlspecialchars($kurssi['kurssi_nimi']) ?></h1>
 
-  <h2>Ilmoittautuneet</h2>
-  <?php if (count($ilmo) === 0): ?>
-    <p>Ei ilmoittautuneita.</p>
-  <?php else: ?>
-    <table>
-      <thead><tr><th>Oppilas</th><th>Ilmoittautunut</th><th>Toiminnot</th></tr></thead>
-      <tbody>
-        <?php foreach($ilmo as $r): ?>
-        <tr>
-          <td><?=htmlspecialchars($r['etunimi'].' '.$r['sukunimi'])?></td>
-          <td><?=htmlspecialchars($r['ilmoittautumispaiva'])?></td>
-          <td>
-            <form method="post" action="poista_ilmo.php" style="display:inline">
-              <input type="hidden" name="id" value="<?= $r['ilmoittautuminen_id'] ?>">
-              <button type="submit" onclick="return confirm('Poistetaanko ilmoittautuminen?')">Poista</button>
-            </form>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  <?php endif; ?>
+    <div class="card">
+      <div class="meta">
+        <div><strong>Tunnus:</strong> <?= htmlspecialchars($kurssi['kurssin_tunnus']) ?></div>
+        <div><strong>Opettaja:</strong> <?= htmlspecialchars($kurssi['op_etunimi'].' '.$kurssi['op_sukunimi']) ?></div>
+        <div><strong>Tila:</strong> <?= htmlspecialchars($kurssi['tila_nimi']) ?></div>
+        <div><strong>Ajanjakso:</strong> <?= htmlspecialchars($kurssi['aloituspaiva']) ?> — <?= htmlspecialchars($kurssi['lopetuspaiva']) ?></div>
+      </div>
+    </div>
 
-  <h3>Lisää ilmoittautuminen</h3>
-  <form method="post" action="ilmoittaudu.php">
-    <input type="hidden" name="kurssi_id" value="<?= $kurssi_id ?>">
-    <label>Oppilas:
-      <select name="oppilas_id" required>
-        <option value="">-- valitse --</option>
-        <?php foreach($opp as $o): ?>
-        <option value="<?= $o['oppilas_id'] ?>"><?=htmlspecialchars($o['etunimi'].' '.$o['sukunimi'])?></option>
-        <?php endforeach; ?>
-      </select>
-    </label>
-    <button type="submit">Ilmoittaudu</button>
-  </form>
-</body></html>
+    <?php if (!empty($kurssi['kurssikuvaus'])): ?>
+      <h2 style="margin:22px 0 10px">Kurssikuvaus</h2>
+      <div class="card">
+        <p><?= nl2br(htmlspecialchars($kurssi['kurssikuvaus'])) ?></p>
+      </div>
+    <?php endif; ?>
+
+    <h2 style="margin:22px 0 10px">Ilmoittautuneet</h2>
+    <div class="card table-wrap">
+      <?php if (count($ilmo) === 0): ?>
+        <p class="muted">Ei ilmoittautuneita.</p>
+      <?php else: ?>
+        <table>
+          <thead>
+            <tr>
+              <th>Oppilas</th>
+              <th>Ilmoittautunut</th>
+              <th>Toiminnot</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach($ilmo as $r): ?>
+            <tr>
+              <td><?= htmlspecialchars($r['etunimi'].' '.$r['sukunimi']) ?></td>
+              <td><?= htmlspecialchars($r['ilmoittautumispaiva']) ?></td>
+              <td>
+                <form method="post" action="poista_ilmo.php" style="display:inline">
+                  <input type="hidden" name="id" value="<?= $r['ilmoittautuminen_id'] ?>">
+                  <button class="btn btn-danger" type="submit" onclick="return confirm('Poistetaanko ilmoittautuminen?')">Poista</button>
+                </form>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php endif; ?>
+    </div>
+
+    <h3 style="margin:22px 0 10px">Lisää ilmoittautuminen</h3>
+    <div class="card">
+      <form method="post" action="ilmoittaudu.php">
+        <input type="hidden" name="kurssi_id" value="<?= $kurssi_id ?>">
+        <label>Oppilas:
+          <select name="oppilas_id" required>
+            <option value="">-- valitse --</option>
+            <?php foreach($opp as $o): ?>
+            <option value="<?= $o['oppilas_id'] ?>"><?= htmlspecialchars($o['etunimi'].' '.$o['sukunimi']) ?></option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+        <button class="btn" type="submit">Ilmoittaudu</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
