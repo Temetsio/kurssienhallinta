@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurssienhallinta</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    :root {
+    --bg: #ffffff;
+    --surface: #f7f9fb;
+    --primary: #991a1a; 
+    --accent: #fd0d0d;  
+    --text: #480b0b;
+    --muted: #856b6b;
+}
+
+* { box-sizing: border-box; }
+html,body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); }
+
+header { background: linear-gradient(90deg, var(--primary), #5a1212); color: #fff; padding: 16px 24px; }
+header a { color: rgba(255,255,255,0.95); text-decoration: none; margin-right: 12px; }
+nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
+main { padding: 24px; background: var(--surface); min-height: calc(100vh - 140px); }
+footer { padding: 12px 24px; color: var(--muted); font-size: 0.9rem; }
+button { background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+button:hover { background: var(--accent); }
+</style>
+<body>
+    <header>
+        <h1>Kurssienhallinta</h1>
+        <nav>
+            <ul>
+                <a href="kurssit.html">Kurssien hallinta</a></li>
+                <a href="ilmoittautuminen.html">Kurssi-ilmoittautumiset</a></li>
+                <a href="opettajat.html">Opettajien hallinta</a></li>
+                <a href="tilat.html">Tilojen hallinta</a></li>
+                <a href="opiskelijat.html">Opiskelijoiden hallinta</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Tervetuloa kurssinhallintajärjestelmään</h2>
+        <p>Valitse ylläolevasta valikosta haluamasi toiminto:</p>
+        <ul>
+            <ul><li>Kurssien hallinta - Lisää, muokkaa ja poista kursseja</li></ul>
+            <ul><li>Kurssi-ilmoittautumiset - Hallinnoi opiskelijoiden ilmoittautumisia kursseille</li></ul>
+            <ul><li>Opettajien hallinta - Lisää ja muokkaa opettajien tietoja ja kursseja</li></ul>
+            <ul><li>Tilojen hallinta - Hallinnoi kurssitilojen varauksia</li></ul>
+            <ul><li>Opiskelijoiden hallinta - Lisää ja muokkaa opiskelijoiden tietoja</li></ul>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2025 Kurssienhallinta</p>
+    </footer>
+</body>
+</html>
