@@ -77,3 +77,22 @@ label{display:inline-flex;gap:10px;align-items:center}
 .meta strong{font-weight:600;color:#cbd5e1}
 .muted{color:var(--muted)}
 hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+
+/* ========== Links (new) ========== */
+a {
+  color: #7dd3fc;              
+  text-decoration: none;
+  font-weight: 600;
+  transition: color .15s ease;
+}
+a:hover, a:focus-visible {
+  color: #bae6fd; 
+  text-decoration: underline;
+}
+a:visited {
+  color: #7dd3fc; 
+}
+a:visited {
+  color: #fbbf24; 
+}
+
