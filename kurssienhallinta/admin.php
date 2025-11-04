@@ -59,7 +59,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
         </select>
         <button type="submit" class="button danger">🗑️ Poista</button>
       </form>
-    </section>
+    </section><br>
 
     <!-- Oppilaat -->
     <section class="card">
@@ -85,7 +85,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
         </select>
         <button type="submit" class="button danger">🗑️ Poista</button>
       </form>
-    </section>
+    </section><br>
 
     <!-- Opettajat -->
     <section class="card">
@@ -111,7 +111,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
         </select>
         <button type="submit" class="button danger">🗑️ Poista</button>
       </form>
-    </section>
+    </section><br>
 
     <!-- Tilat -->
     <section class="card">
