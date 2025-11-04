@@ -139,11 +139,11 @@ Lisää/poista kurssi-ilmoittautumisia
 
 ```
 Tietokannassa on valmiina:
-- 5 opettajaa
-- 5 tilaa (kapasiteetit: 20-40 oppilasta)
-- 5 kurssia (eri aineita)
-- 8 oppilasta (vuosikurssit 1-3)
-- 17 kurssi-ilmoittautumista
+- 20 opettajaa
+- 15 tilaa (kapasiteetit: 20-50 oppilasta)
+- 33 kurssia (eri aineita)
+- 58 oppilasta (vuosikurssit 1-3)
+- 108 kurssi-ilmoittautumista
 ```
 
 
