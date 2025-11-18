@@ -34,13 +34,18 @@ button:hover { background: var(--accent); }
         <a href="kurssit.html">Kurssit</a> |
         <a href="tilat.html">Tilat</a> |
         <a href="opiskelijat.html">Opiskelijat</a> |
-        <a href="ilmoittautuminen.html">Ilmoittautumiset</a>
+        <a href="ilmoittautumiset.html">Ilmoittautumiset</a>
     </nav>
 </header>
 <main>
     <section>
         <h2>Lisää opettaja</h2>
         <form id="opettaja-form">
+        <li>Anna Mäkinen, Kemia 1</li>
+        <li>Martti Virtanen, Matematiikan perusteet</li>
+        <li> Liisa Korhonen, Ohjelmointi 1</li>
+        <li>Pekka Nieminen, Fysiikka 1</li>
+        <li>Juha Lehtonen, Tietokannat</li>
             <label>Nimi<br><input id="opettaja-nimi" required></label><br>
             <label>Aine / kuvaus<br><input id="opettaja-aine"></label><br>
             <button type="submit">Lisää</button>
@@ -50,9 +55,11 @@ button:hover { background: var(--accent); }
     <section>
         <h2>Opettajat</h2>
         <table id="opettajat-table">
-            <thead><tr><th>Nimi</th><th>Aine</th><th>Toiminnot</th></tr></thead>
+            <thead><tr><th>Nimi</th><th>Aine</th></th></tr></thead>
             <tbody></tbody>
         </table>
+        
+
     </section>
 </main>
 <script>
