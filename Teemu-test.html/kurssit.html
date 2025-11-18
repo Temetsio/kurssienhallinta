@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurssien hallinta</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    :root {
+    --bg: #ffffff;
+    --surface: #f7f9fb;
+    --primary: #aa0000; 
+    --accent: #dd0000;  
+    --text: #b90000;
+    --muted: #6b7785;
+}
+
+* { box-sizing: border-box; }
+html,body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); }
+header { background: linear-gradient(90deg, var(--primary), #12365a); color: #fff; padding: 16px 24px; }
+header a { color: rgba(255,255,255,0.95); text-decoration: none; margin-right: 12px; }
+nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
+main { padding: 24px; background: var(--surface); min-height: calc(100vh - 140px); }
+footer { padding: 12px 24px; color: var(--muted); font-size: 0.9rem; }
+button { background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+button:hover { background: var(--accent); }
+</style>
+<body>
+    <header>
+        <h1>Kurssien hallinta</h1>
+        <nav>
+            <a href="kurssienhallinta.html">Etusivu</a> |
+            <a href="tilat.html">Tilat</a> |
+            <a href="opettajat.html">Opettajat</a> |
+            <a href="opiskelijat.html">Opiskelijat</a> |
+            <a href="ilmoittautuminen.html">Ilmoittautumiset</a>
+        </nav>
+    </header>
+    <main>
+        <section class="kurssin-lisays">
+            <h2>Lisää uusi kurssi</h2>
+            <form id="kurssi-lomake">
+                <div>
+                    <label for="kurssi-nimi">Kurssin nimi:</label>
+                    <input type="text" id="kurssi-nimi" required>
+                </div>
+                <div>
+                    <label for="opettaja">Valitse opettaja:</label>
+                    <select id="opettaja" required>
+                        <option value="">Valitse opettaja</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="tila">Valitse tila:</label>
+                    <select id="tila" required>
+                        <option value="">Valitse tila</option>
+                    </select>
+                </div>
+                <button type="submit">Tallenna kurssi</button>
+            </form>
+        </section>
+
+        <section class="kurssien-listaus">
+            <h2>Kurssit</h2>
+            <table id="kurssit-taulukko">
+                <thead>
+                    <tr>
+                        <th>Kurssin nimi</th>
+                        <th>Opettaja</th>
+                        <th>Tila</th>
+                        <th>Ilmoittautuneet</th>
+                        <th>Toiminnot</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Kurssienhallinta</p>
+    </footer>
+</body>
+</html>
