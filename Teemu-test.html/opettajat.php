@@ -1,75 +1,32 @@
-<!DOCTYPE html>
-<html lang="fi">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Opettajat</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    :root {
-    --bg: #ffffff;
-    --surface: #f7f9fb;
-    --primary: #b90000; 
-    --accent: #fd0d0d;
-    --text: #cc0000;
-    --muted: #6b7785;
+<?php
+include 'db.php';
+include 'header.php';
+
+// Lisää opettaja
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nimi = $_POST['nimi'];
+    $stmt = $mysqli->prepare("INSERT INTO opettajat (nimi) VALUES (?)");
+    $stmt->bind_param("s", $nimi);
+    $stmt->execute();
+    $stmt->close();
 }
 
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); }
-header { background: linear-gradient(90deg, var(--primary), #b90000); color: #fff; padding: 16px 24px; }
-header a { color: rgba(255,255,255,0.95); text-decoration: none; margin-right: 12px; }
-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
-main { padding: 24px; background: var(--surface); min-height: calc(100vh - 140px); }
-footer { padding: 12px 24px; color: var(--muted); font-size: 0.9rem; }
-button { background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
-button:hover { background: var(--accent); }
-</style>
-<body>
-<header>
-    <h1>Opettajat</h1>
-    <nav>
-        <a href="kurssienhallinta.html">Etusivu</a> |
-        <a href="kurssit.html">Kurssit</a> |
-        <a href="tilat.html">Tilat</a> |
-        <a href="opiskelijat.html">Opiskelijat</a> |
-        <a href="ilmoittautumiset.html">Ilmoittautumiset</a>
-    </nav>
-</header>
+// Hae opettajat
+$opettajat = $mysqli->query("SELECT * FROM opettajat");
+?>
 <main>
-    <section>
-        <h2>Lisää opettaja</h2>
-        <form id="opettaja-form">
-        <li>Anna Mäkinen, Kemia 1</li>
-        <li>Martti Virtanen, Matematiikan perusteet</li>
-        <li> Liisa Korhonen, Ohjelmointi 1</li>
-        <li>Pekka Nieminen, Fysiikka 1</li>
-        <li>Juha Lehtonen, Tietokannat</li>
-            <label>Nimi<br><input id="opettaja-nimi" required></label><br>
-            <label>Aine / kuvaus<br><input id="opettaja-aine"></label><br>
-            <button type="submit">Lisää</button>
-        </form>
-    </section>
+    <h2>Lisää opettaja</h2>
+    <form method="POST">
+        <label>Nimi: <input name="nimi" required></label>
+        <button type="submit">Lisää</button>
+    </form>
 
-    <section>
-        <h2>Opettajat</h2>
-        <table id="opettajat-table">
-            <thead><tr><th>Nimi</th><th>Aine</th></th></tr></thead>
-            <tbody></tbody>
-        </table>
-        
-
-    </section>
+    <h2>Opettajat</h2>
+    <table border="1">
+        <tr><th>Nimi</th></tr>
+        <?php while($r = $opettajat->fetch_assoc()): ?>
+            <tr><td><?= $r['nimi'] ?></td></tr>
+        <?php endwhile; ?>
+    </table>
 </main>
-<script>
-const form = document.getElementById('opettaja-form');
-const tableBody = document.querySelector('#opettajat-table tbody');
-function load(){ JSON.parse(localStorage.getItem('teachers')||'[]').forEach(t=> {
-    const tr=document.createElement('tr'); tr.innerHTML=`<td>${t.name}</td><td>${t.subject||''}</td><td></td>`; tableBody.append(tr);
-});}
-form.addEventListener('submit',e=>{ e.preventDefault(); const t={name:document.getElementById('opettaja-nimi').value,subject:document.getElementById('opettaja-aine').value}; const arr=JSON.parse(localStorage.getItem('teachers')||'[]'); arr.push(t); localStorage.setItem('teachers',JSON.stringify(arr)); tableBody.innerHTML=''; load(); form.reset();});
-load();
-</script>
-</body>
-</html>
+<?php include 'footer.php'; ?>
