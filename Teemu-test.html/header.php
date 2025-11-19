@@ -1,5 +1,10 @@
 <header>
-    <h1>Kurssienhallinta</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurssienhallinta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
     <nav>
         <ul>
             <li><a href="kurssienhallinta.php">Etusivu</a></li>
@@ -11,9 +16,4 @@
         </ul>
     </nav>
 </header>
-<head>
-    <meta charset="UTF-8">
-    <title>Kurssienhallinta</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 
