@@ -11,3 +11,9 @@
         </ul>
     </nav>
 </header>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurssienhallinta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
