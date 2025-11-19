@@ -68,6 +68,7 @@ foreach ($sessiot as $s) {
     border: 1px solid #ccc;
     margin-top: 25px;
     background: #fff;
+    color: #007cb5ff;
 }
 
 .time-cell {
@@ -75,7 +76,7 @@ foreach ($sessiot as $s) {
     height: 60px;
     padding: 4px;
     font-size: 12px;
-    color: #666;
+    color: #007cb5ff;
 }
 
 .day-column {
@@ -103,11 +104,12 @@ foreach ($sessiot as $s) {
 
 .session-title {
     font-weight: bold;
+    color: #fbbf24;
 }
 
 .session-room {
     font-size: 11px;
-    color: #555;
+    color: #007cb5ff;
 }
 </style>
 
