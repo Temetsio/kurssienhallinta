@@ -1,101 +1,21 @@
-<!DOCTYPE html>
-<html lang="fi">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Opiskelijat</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    :root {
-    --bg: #ffffff;
-    --surface: #f7f9fb;
-    --primary: #e20000;
-    --accent: #fd0d0d;  
-    --text: #bb0000;
-    --muted: #856b6b;
-}
+<?php 
+include 'db.php';
+include 'header.php';
 
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); }
-
-header { background: linear-gradient(90deg, var(--primary), #af0000); color: #fff; padding: 16px 24px; }
-header a { color: rgba(255,255,255,0.95); text-decoration: none; margin-right: 12px; }
-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
-main { padding: 24px; background: var(--surface); min-height: calc(100vh - 140px); }
-footer { padding: 12px 24px; color: var(--muted); font-size: 0.9rem; }
-button { background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
-button:hover { background: var(--accent); }
-</style>
-<body>
-<header>
-    <h1>Kurssit</h1>
-    <nav>
-        <a href="kurssienhallinta.html">Etusivu</a> |
-        <a href="kurssit.html">Kurssit</a> |
-        <a href="opettajat.html">Opettajat</a> |
-        <a href="tilat.html">Tilat</a> |
-        <a href="ilmoittautumiset.html">Ilmoittautumiset</a>
-    </nav>
-</header>
+// Hae ilmoittautumiset
+$ilmoittautumiset = $mysqli->query("
+    SELECT o.nimi AS opiskelija, k.kurssi_nimi AS kurssi
+    FROM opiskelijat o
+    JOIN kurssit k ON o.kurssi_id = k.kurssi_id
+");
+?>
 <main>
-    <section>
-        <h2>Lisää opiskelija</h2>
-        <form id="opiskelija-form">
-            <label>Nimi<br><input id="opiskelija-nimi" required></label><br>
-            <select id="ilmoittautumiset">
-            <option value="">Valitse kurssi</option>
-                `kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuvaus`, `aloituspaiva`, `lopetuspaiva`, `opettaja_id`, `tila_id`
-            <option value="">MAT101, Matematiikan perusteet, Peruslaskutoimitukset ja algebra</option>
-            <option value="">OHJ201, Ohjelmointi 1, Johdatus ohjelmointiin Python-kielellä</option>
-            <option value="">FYS301, Fysiikka 1, Mekaniikka ja lämpöoppi</option>
-            <option value="">KEM401, Kemia 1, Orgaaninen kemia</option>
-            <option value="">TIK501, Tietokannat, SQL ja tietokantasuunnittelu</option>
-            <option value="">MAT201, Matematiikka 2, Trigonometria ja analyyttinen geometria</option>
-            <option value="">OHJ301, Ohjelmointi 2, Olioohjelmointi Java-kielellä, 2025-09-01, 2026-05-29, 2, 2</option>
-<option value="">MAT301, Matematiikka 3, Differentiaali- ja integraalilaskenta, 2025-09-01, 2026-05-29, 1, 15</option>
-<option value="">OHJ401, Web-ohjelmointi, HTML, CSS ja JavaScript, 2025-09-01, 2026-05-29, 2, 14</option>
-<option value="">FYS201, Fysiikka 2, Sähköoppi ja magnetismi, 2025-09-01, 2026-05-29, 3, 13</option>
-<option value="">FYS401, Fysiikka 4, Aaltoliike ja optiikka, 2025-09-01, 2026-05-29, 3, 12</option>
-<option value="">KEM201, Kemia 2, Epäorgaaninen kemia ja hapot, 2025-09-01, 2026-05-29, 4, 11</option>
-<option value="">KEM301, Kemia 3, Orgaaninen kemia, 2025-09-01, 2026-05-29, 4, 10</option>
-<option value="">TIK201, Tietokannat, SQL ja tietokantasuunnittelu, 2025-09-01, 2026-05-29, 5, 9</option>
-<option value"">TIK301, Tietoverkot, Internet ja verkkoprotokollat, 2025-09-01, 2026-05-29, 5, 8</option>
-<option value="">KUV101, Kuvataide 1, Piirustus ja maalaus, 2025-09-01, 2026-05-29, 6, 1</option>
-<option value="">KUV201, Kuvataide 2, Digitaalinen kuvankäsittely, 2025-09-01, 2026-05-29, 14, 2</option>
-<option value="">ÄI201, Äidinkieli 2, Kielioppi ja kirjoittaminen, 2025-09-01, 2026-05-29, 7, 3</option>
-<option value="">ÄI301, Kirjallisuus 1, Suomalainen kirjallisuus, 2025-09-01, 2026-05-29, 10, 3</option>
-<option value="">YH101, Yhteiskuntaoppi 1, Suomen yhteiskuntajärjestelmä, 2025-09-01, 2026-05-29, 8, 4</option>
-<option value="">RUO201, Ruotsi 2, Keskustelutaidot, 2025-09-01, 2026-05-29, 9, 13</option>
-<option value="">RUO301, Ruotsi 3, Kirjoittaminen ja ymmärtäminen, 2025-09-01, 2026-05-29, 9, 5</option>
-<option value="">HIS201, Historia 2, Suomen itsenäisyys, 2025-09-01, 2026-05-29, 11, 15</option>
-<option value="">HIS301, Historia 3, Toinen maailmansota, 2025-09-01, 2026-05-29, 11, 14
-(30, 'ENG301', 'Englanti 3', 'Keskustelutaidot', '2025-09-01', '2026-05-29', 12, 2),
-(31, 'ENG401', 'Englanti 4', 'Akateeminen kirjoittaminen', '2025-09-01', '2026-05-29', 13, 2),
-(32, 'KÄS101', 'Käsityö 1', 'Puutyöt', '2025-09-01', '2026-05-29', 15, 6),
-(33, 'MAA101', 'Maantieto 1', 'Fyysinen maantieto', '2025-09-01', '2026-05-29', 16, 4),
-(34, 'US101', 'Uskonto 1', 'Maailmanuskonnot', '2025-09-01', '2026-05-29', 17, 14),
-(35, 'US201', 'Uskonto 2', 'Etiikka ja moraali', '2025-09-01', '2026-05-29', 18, 5),
-(36, 'LII201', 'Liikunta 2', 'Joukkuelajit', '2025-09-01', '2026-05-29', 19, 1),
-(37, 'BIO201', 'Biologia 2', 'Ekologia ja ympäristö', '2025-09-01', '2026-05-29', 20, 7),
-(38, 'TEST999', 'Ylitäysi testikaurssi', 'Testi kapasiteetille', '2025-09-01', '2026-05-29', 1, 7);
-
-            <button type="submit">Lisää</button> 
-        
-        </select>
-        </form>
-    </section>
-
-    <section>
-        <h2></h2>
-<script>
-const f=document.getElementById('opiskelija-form'), tb=document.querySelector('#opiskelijat-table tbody');
-function loadS(){ JSON.parse(localStorage.getItem('students')||'[]').forEach(s=> { const tr=document.createElement('tr'); tr.innerHTML=`<td>${s.name}</td><td>${s.email||''}</td><td></td>`; tb.append(tr); });}
-f.addEventListener('submit',e=>{ e.preventDefault(); const s={name:document.getElementById('opiskelija-nimi').value,email:document.getElementById('opiskelija-email').value}; const arr=JSON.parse(localStorage.getItem('students')||'[]'); arr.push(s); localStorage.setItem('students',JSON.stringify(arr)); tb.innerHTML=''; loadS(); f.reset();});
-loadS();
-</script>
-</body>
-</html>
-
-
-
+    <h2>Kurssi-ilmoittautumiset</h2>
+    <table border="1">
+        <tr><th>Opiskelija</th><th>Kurssi</th></tr>
+        <?php while($r = $ilmoittautumiset->fetch_assoc()): ?>
+            <tr><td><?= $r['opiskelija'] ?></td><td><?= $r['kurssi'] ?></td></tr>
+        <?php endwhile; ?>
+    </table>
+</main>
+<?php include 'footer.php'; ?>
