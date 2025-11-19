@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2025 at 10:01 AM
--- Server version: 10.4.32-MariaDB
+-- Generation Time: 19.11.2025 klo 08:45
+-- Palvelimen versio: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ilmoittautuminen`
+-- Rakenne taululle `ilmoittautuminen`
 --
 
 CREATE TABLE `ilmoittautuminen` (
@@ -35,7 +35,7 @@ CREATE TABLE `ilmoittautuminen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ilmoittautuminen`
+-- Vedos taulusta `ilmoittautuminen`
 --
 
 INSERT INTO `ilmoittautuminen` (`ilmoittautuminen_id`, `opiskelija_id`, `kurssi_id`, `ilmoittautumispaiva`) VALUES
@@ -151,7 +151,7 @@ INSERT INTO `ilmoittautuminen` (`ilmoittautuminen_id`, `opiskelija_id`, `kurssi_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kurssisessiot`
+-- Rakenne taululle `kurssisessiot`
 --
 
 CREATE TABLE `kurssisessiot` (
@@ -164,7 +164,7 @@ CREATE TABLE `kurssisessiot` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kurssisessiot`
+-- Vedos taulusta `kurssisessiot`
 --
 
 INSERT INTO `kurssisessiot` (`sessio_id`, `kurssi_id`, `viikonpaiva`, `alkuaika`, `loppuaika`, `created_at`) VALUES
@@ -233,7 +233,7 @@ INSERT INTO `kurssisessiot` (`sessio_id`, `kurssi_id`, `viikonpaiva`, `alkuaika`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kurssit`
+-- Rakenne taululle `kurssit`
 --
 
 CREATE TABLE `kurssit` (
@@ -248,7 +248,7 @@ CREATE TABLE `kurssit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `kurssit`
+-- Vedos taulusta `kurssit`
 --
 
 INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuvaus`, `aloituspaiva`, `lopetuspaiva`, `opettaja_id`, `tila_id`) VALUES
@@ -289,7 +289,7 @@ INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuva
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_kaynnissa_olevat_kurssit`
+-- Näkymän vararakenne `nakyma_kaynnissa_olevat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kaynnissa_olevat_kurssit` (
@@ -305,7 +305,7 @@ CREATE TABLE `nakyma_kaynnissa_olevat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_kurssien_aikataulu`
+-- Näkymän vararakenne `nakyma_kurssien_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kurssien_aikataulu` (
@@ -323,7 +323,7 @@ CREATE TABLE `nakyma_kurssien_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_kurssit_taydellinen`
+-- Näkymän vararakenne `nakyma_kurssit_taydellinen`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kurssit_taydellinen` (
@@ -344,12 +344,13 @@ CREATE TABLE `nakyma_kurssit_taydellinen` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_opettajan_aikataulu`
+-- Näkymän vararakenne `nakyma_opettajan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opettajan_aikataulu` (
 `opettaja_id` int(11)
 ,`opettaja` varchar(101)
+,`kurssi_id` int(11)
 ,`kurssi_nimi` varchar(100)
 ,`kurssin_tunnus` varchar(20)
 ,`tila_nimi` varchar(50)
@@ -363,7 +364,7 @@ CREATE TABLE `nakyma_opettajan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_opettajat_kurssit`
+-- Näkymän vararakenne `nakyma_opettajat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opettajat_kurssit` (
@@ -377,7 +378,7 @@ CREATE TABLE `nakyma_opettajat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_opiskelijan_aikataulu`
+-- Näkymän vararakenne `nakyma_opiskelijan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijan_aikataulu` (
@@ -397,7 +398,7 @@ CREATE TABLE `nakyma_opiskelijan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_opiskelijat_aktiivisuus`
+-- Näkymän vararakenne `nakyma_opiskelijat_aktiivisuus`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijat_aktiivisuus` (
@@ -411,7 +412,7 @@ CREATE TABLE `nakyma_opiskelijat_aktiivisuus` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_opiskelijat_kurssit`
+-- Näkymän vararakenne `nakyma_opiskelijat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijat_kurssit` (
@@ -429,7 +430,7 @@ CREATE TABLE `nakyma_opiskelijat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_tilan_aikataulu`
+-- Näkymän vararakenne `nakyma_tilan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tilan_aikataulu` (
@@ -449,7 +450,7 @@ CREATE TABLE `nakyma_tilan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_tilat_kaytto`
+-- Näkymän vararakenne `nakyma_tilat_kaytto`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tilat_kaytto` (
@@ -465,7 +466,7 @@ CREATE TABLE `nakyma_tilat_kaytto` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_tulevat_kurssit`
+-- Näkymän vararakenne `nakyma_tulevat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tulevat_kurssit` (
@@ -483,7 +484,7 @@ CREATE TABLE `nakyma_tulevat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `nakyma_ylibuukatut_kurssit`
+-- Näkymän vararakenne `nakyma_ylibuukatut_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_ylibuukatut_kurssit` (
@@ -499,7 +500,7 @@ CREATE TABLE `nakyma_ylibuukatut_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `opettajat`
+-- Rakenne taululle `opettajat`
 --
 
 CREATE TABLE `opettajat` (
@@ -510,7 +511,7 @@ CREATE TABLE `opettajat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `opettajat`
+-- Vedos taulusta `opettajat`
 --
 
 INSERT INTO `opettajat` (`opettaja_id`, `etunimi`, `sukunimi`, `aine`) VALUES
@@ -538,7 +539,7 @@ INSERT INTO `opettajat` (`opettaja_id`, `etunimi`, `sukunimi`, `aine`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `oppilaat`
+-- Rakenne taululle `oppilaat`
 --
 
 CREATE TABLE `oppilaat` (
@@ -550,7 +551,7 @@ CREATE TABLE `oppilaat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `oppilaat`
+-- Vedos taulusta `oppilaat`
 --
 
 INSERT INTO `oppilaat` (`oppilas_id`, `etunimi`, `sukunimi`, `syntymaaika`, `vuosikurssi`) VALUES
@@ -616,7 +617,7 @@ INSERT INTO `oppilaat` (`oppilas_id`, `etunimi`, `sukunimi`, `syntymaaika`, `vuo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tilat`
+-- Rakenne taululle `tilat`
 --
 
 CREATE TABLE `tilat` (
@@ -626,7 +627,7 @@ CREATE TABLE `tilat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tilat`
+-- Vedos taulusta `tilat`
 --
 
 INSERT INTO `tilat` (`tila_id`, `tila_nimi`, `paikkoja`) VALUES
@@ -649,7 +650,7 @@ INSERT INTO `tilat` (`tila_id`, `tila_nimi`, `paikkoja`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_kaynnissa_olevat_kurssit`
+-- Näkymän rakenne `nakyma_kaynnissa_olevat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_kaynnissa_olevat_kurssit`;
 
@@ -658,7 +659,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_kurssien_aikataulu`
+-- Näkymän rakenne `nakyma_kurssien_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_kurssien_aikataulu`;
 
@@ -667,7 +668,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_kurssit_taydellinen`
+-- Näkymän rakenne `nakyma_kurssit_taydellinen`
 --
 DROP TABLE IF EXISTS `nakyma_kurssit_taydellinen`;
 
@@ -676,16 +677,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_opettajan_aikataulu`
+-- Näkymän rakenne `nakyma_opettajan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_opettajan_aikataulu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_opettajan_aikataulu`  AS SELECT `o`.`opettaja_id` AS `opettaja_id`, concat(`o`.`etunimi`,' ',`o`.`sukunimi`) AS `opettaja`, `k`.`kurssi_nimi` AS `kurssi_nimi`, `k`.`kurssin_tunnus` AS `kurssin_tunnus`, `t`.`tila_nimi` AS `tila_nimi`, `s`.`viikonpaiva` AS `viikonpaiva`, `s`.`alkuaika` AS `alkuaika`, `s`.`loppuaika` AS `loppuaika`, `k`.`aloituspaiva` AS `aloituspaiva`, `k`.`lopetuspaiva` AS `lopetuspaiva` FROM (((`opettajat` `o` join `kurssit` `k` on(`o`.`opettaja_id` = `k`.`opettaja_id`)) join `tilat` `t` on(`k`.`tila_id` = `t`.`tila_id`)) join `kurssisessiot` `s` on(`k`.`kurssi_id` = `s`.`kurssi_id`)) ORDER BY `o`.`opettaja_id` ASC, field(`s`.`viikonpaiva`,'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai') ASC, `s`.`alkuaika` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_opettajan_aikataulu`  AS SELECT `o`.`opettaja_id` AS `opettaja_id`, concat(`o`.`etunimi`,' ',`o`.`sukunimi`) AS `opettaja`, `k`.`kurssi_id` AS `kurssi_id`, `k`.`kurssi_nimi` AS `kurssi_nimi`, `k`.`kurssin_tunnus` AS `kurssin_tunnus`, `t`.`tila_nimi` AS `tila_nimi`, `s`.`viikonpaiva` AS `viikonpaiva`, `s`.`alkuaika` AS `alkuaika`, `s`.`loppuaika` AS `loppuaika`, `k`.`aloituspaiva` AS `aloituspaiva`, `k`.`lopetuspaiva` AS `lopetuspaiva` FROM (((`opettajat` `o` join `kurssit` `k` on(`o`.`opettaja_id` = `k`.`opettaja_id`)) join `tilat` `t` on(`k`.`tila_id` = `t`.`tila_id`)) join `kurssisessiot` `s` on(`k`.`kurssi_id` = `s`.`kurssi_id`)) ORDER BY `o`.`opettaja_id` ASC, field(`s`.`viikonpaiva`,'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai') ASC, `s`.`alkuaika` ASC ;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_opettajat_kurssit`
+-- Näkymän rakenne `nakyma_opettajat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_opettajat_kurssit`;
 
@@ -694,7 +695,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_opiskelijan_aikataulu`
+-- Näkymän rakenne `nakyma_opiskelijan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijan_aikataulu`;
 
@@ -703,7 +704,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_opiskelijat_aktiivisuus`
+-- Näkymän rakenne `nakyma_opiskelijat_aktiivisuus`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijat_aktiivisuus`;
 
@@ -712,7 +713,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_opiskelijat_kurssit`
+-- Näkymän rakenne `nakyma_opiskelijat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijat_kurssit`;
 
@@ -721,7 +722,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_tilan_aikataulu`
+-- Näkymän rakenne `nakyma_tilan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_tilan_aikataulu`;
 
@@ -730,7 +731,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_tilat_kaytto`
+-- Näkymän rakenne `nakyma_tilat_kaytto`
 --
 DROP TABLE IF EXISTS `nakyma_tilat_kaytto`;
 
@@ -739,7 +740,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_tulevat_kurssit`
+-- Näkymän rakenne `nakyma_tulevat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_tulevat_kurssit`;
 
@@ -748,7 +749,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `nakyma_ylibuukatut_kurssit`
+-- Näkymän rakenne `nakyma_ylibuukatut_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_ylibuukatut_kurssit`;
 
@@ -849,24 +850,24 @@ ALTER TABLE `tilat`
   MODIFY `tila_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Constraints for dumped tables
+-- Rajoitteet vedostauluille
 --
 
 --
--- Constraints for table `ilmoittautuminen`
+-- Rajoitteet taululle `ilmoittautuminen`
 --
 ALTER TABLE `ilmoittautuminen`
   ADD CONSTRAINT `ilmoittautuminen_ibfk_1` FOREIGN KEY (`opiskelija_id`) REFERENCES `oppilaat` (`oppilas_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `ilmoittautuminen_ibfk_2` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`kurssi_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `kurssisessiot`
+-- Rajoitteet taululle `kurssisessiot`
 --
 ALTER TABLE `kurssisessiot`
   ADD CONSTRAINT `kurssisessiot_ibfk_1` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`kurssi_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `kurssit`
+-- Rajoitteet taululle `kurssit`
 --
 ALTER TABLE `kurssit`
   ADD CONSTRAINT `kurssit_ibfk_1` FOREIGN KEY (`opettaja_id`) REFERENCES `opettajat` (`opettaja_id`),
