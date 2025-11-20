@@ -1,9 +1,12 @@
+<!DOCTYPE html>
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <title>Kurssienhallinta</title>
+    <link rel="stylesheet" href="style.css"> <!-- valinnainen -->
 </head>
-
 <body>
+
 <header>
     <nav>
         <ul>
@@ -16,4 +19,3 @@
         </ul>
     </nav>
 </header>
-</body>
