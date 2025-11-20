@@ -137,7 +137,51 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
         </select>
         <button type="submit" class="button danger">🗑️ Poista</button>
       </form>
-    </section>
+    </section><br>
+
+    <!-- Kurssisessiot -->
+<section class="card">
+  <h2>Kurssisessiot</h2>
+  <a href="add_edit_sessio.php" class="button">➕ Lisää uusi sessio</a>
+
+  <form class="form-row" action="add_edit_sessio.php" method="get">
+    <select name="id" required>
+      <option value="">-- Valitse muokattava sessio --</option>
+      <?php
+      $sessiot = $pdo->query("
+        SELECT s.sessio_id,
+               k.kurssi_nimi,
+               s.viikonpaiva,
+               s.alkuaika,
+               s.loppuaika
+        FROM kurssisessiot s
+        JOIN kurssit k ON s.kurssi_id = k.kurssi_id
+        ORDER BY k.kurssi_nimi, FIELD(viikonpaiva,'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai'), alkuaika
+      ")->fetchAll();
+
+      foreach($sessiot as $s):
+      ?>
+        <option value="<?= $s['sessio_id'] ?>">
+          <?= htmlspecialchars($s['kurssi_nimi']." – ".$s['viikonpaiva']." ".$s['alkuaika']."–".$s['loppuaika']) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+    <button type="submit" class="button warn">✏️ Muokkaa</button>
+  </form>
+
+  <form class="form-row" onsubmit="event.preventDefault(); confirmDelete('delete_sessio.php?id=' + this.id.value);">
+    <select name="id" required>
+      <option value="">-- Valitse poistettava sessio --</option>
+      <?php foreach($sessiot as $s): ?>
+        <option value="<?= $s['sessio_id'] ?>">
+          <?= htmlspecialchars($s['kurssi_nimi']." – ".$s['viikonpaiva']." ".$s['alkuaika']."–".$s['loppuaika']) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+    <button type="submit" class="button danger">🗑️ Poista</button>
+  </form>
+</section><br>
+
 
   </div>
 </body>
