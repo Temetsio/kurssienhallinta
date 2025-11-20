@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 $oppilas = [
@@ -63,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </label>
 
       <label>Syntymäaika
-        <input type="date" name="syntymaaika" value="<?= htmlspecialchars($oppilas['syntymaaika']) ?>" required>
+        <input type="date" name="syntymaaika" value="<?= finDate($oppilas['syntymaaika']) ?>" required>
       </label>
 
       <label>Vuosikurssi

@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 $opettajat = $pdo->query("SELECT opettaja_id, etunimi, sukunimi FROM opettajat ORDER BY sukunimi")->fetchAll();
@@ -82,11 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="form-row">
         <label>Alkaa
-          <input type="date" name="aloituspaiva" value="<?= htmlspecialchars($kurssi['aloituspaiva']) ?>" required>
+          <input type="date" name="aloituspaiva" value="<?= finDate($kurssi['aloituspaiva']) ?>" required>
         </label>
 
         <label>Loppuu
-          <input type="date" name="lopetuspaiva" value="<?= htmlspecialchars($kurssi['lopetuspaiva']) ?>" required>
+          <input type="date" name="lopetuspaiva" value="<?= finDate($kurssi['lopetuspaiva']) ?>" required>
         </label>
       </div>
 
