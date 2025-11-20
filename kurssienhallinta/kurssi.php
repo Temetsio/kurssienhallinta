@@ -281,6 +281,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let box = document.createElement("div");
             box.className = "session-box";
+            box.style.cursor = "pointer";
+            box.onclick = () => {window.location.href = "kurssi.php?id=" + s.kurssi_id;};
             box.style.top = top + "px";
             box.style.height = height + "px";
             box.style.width = `calc(${width}% - 6px)`;
