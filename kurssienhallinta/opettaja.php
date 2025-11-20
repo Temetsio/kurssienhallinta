@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
@@ -143,8 +149,8 @@ foreach ($sessiot as $s) {
           <?php else: foreach($kurssit as $k): ?>
             <tr>
               <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
-              <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
-              <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+              <td><?= finDate($k['aloituspaiva']) ?></td>
+              <td><?= finDate($k['lopetuspaiva']) ?></td>
               <td><?= htmlspecialchars($k['tila_nimi'] ?? '—') ?></td>
             </tr>
           <?php endforeach; endif; ?>
@@ -159,7 +165,7 @@ foreach ($sessiot as $s) {
     <a href="opettaja.php?id=<?= $opettaja_id ?>&week=<?= $week+1 ?>&year=<?= $year ?>">Seuraava viikko →</a>
 </p>
 
-<p>Viikko <?= $week ?> (<?= $weekStart ?> – <?= $weekEnd ?>)</p>
+<p>Viikko <?= $week ?> (<?= finDate($weekStart) ?> – <?= finDate($weekEnd) ?>)</p>
 
 <div class="calendar-grid">
 

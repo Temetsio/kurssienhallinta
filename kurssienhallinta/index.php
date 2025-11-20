@@ -1,6 +1,11 @@
 <?php
 require_once 'db.php';
 
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 $stmt = $pdo->query("SELECT k.kurssi_id, k.kurssin_tunnus, k.kurssi_nimi, k.aloituspaiva, k.lopetuspaiva, o.etunimi AS op_etunimi, o.sukunimi AS op_sukunimi, t.tila_nimi
     FROM kurssit k
@@ -48,8 +53,8 @@ $kurssit = $stmt->fetchAll();
             <td><?= htmlspecialchars($k['kurssi_nimi']) ?></td>
             <td><?= htmlspecialchars($k['op_etunimi'] . ' ' . $k['op_sukunimi']) ?></td>
             <td><?= htmlspecialchars($k['tila_nimi']) ?></td>
-            <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
-            <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+            <td><?= finDate($k['aloituspaiva']) ?></td>
+            <td><?= finDate($k['lopetuspaiva']) ?></td>
             <td><a href="kurssi.php?id=<?= $k['kurssi_id'] ?>">Näytä</a></td>
           </tr>
           <?php endforeach; ?>

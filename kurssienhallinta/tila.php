@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
@@ -137,8 +143,8 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
             <tr class="<?= $over ? 'warn' : '' ?>">
               <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
               <td><?= htmlspecialchars($k['opettaja_nimi'] ?? '—') ?></td>
-              <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
-              <td><?= htmlspecialchars($k['lopetuspaiva']) ?></td>
+              <td><?= finDate($k['aloituspaiva']) ?></td>
+              <td><?= finDate($k['lopetuspaiva']) ?></td>
               <td><?= (int)$k['osallistujia'] ?> / <?= $cap ?></td>
               <td><?= $over ? '<span class="badge">⚠️</span>' : '' ?></td>
             </tr>
@@ -156,7 +162,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
   <a href="tila.php?id=<?= $tila_id ?>&week=<?= $week+1 ?>&year=<?= $year ?>">Seuraava viikko →</a>
 </p>
 
-<p>Viikko <?= $week ?> (<?= $weekStart ?> – <?= $weekEnd ?>)</p>
+<p>Viikko <?= $week ?> (<?= finDate($weekStart) ?> – <?= finDate($weekEnd) ?>)</p>
 
 <div class="calendar-grid">
     <?php

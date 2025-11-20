@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -122,7 +128,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
         <div><strong>Tunnus:</strong> <?= htmlspecialchars($kurssi['kurssin_tunnus']) ?></div>
         <div><strong>Opettaja:</strong> <?= htmlspecialchars($kurssi['op_etunimi'].' '.$kurssi['op_sukunimi']) ?></div>
         <div><strong>Tila:</strong> <?= htmlspecialchars($kurssi['tila_nimi']) ?></div>
-        <div><strong>Ajanjakso:</strong> <?= htmlspecialchars($kurssi['aloituspaiva']) ?> — <?= htmlspecialchars($kurssi['lopetuspaiva']) ?></div>
+        <div><strong>Ajanjakso:</strong> <?= finDate($kurssi['aloituspaiva']) ?> — <?= finDate($kurssi['lopetuspaiva']) ?></div>
       </div>
     </div>
 
@@ -150,7 +156,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
             <?php foreach($ilmo as $r): ?>
             <tr>
               <td><?= htmlspecialchars($r['etunimi'].' '.$r['sukunimi']) ?></td>
-              <td><?= htmlspecialchars($r['ilmoittautumispaiva']) ?></td>
+              <td><?= finDate($r['ilmoittautumispaiva']) ?></td>
               <td>
                 <form method="post" action="poista_ilmo.php" style="display:inline">
                   <input type="hidden" name="id" value="<?= $r['ilmoittautuminen_id'] ?>">
@@ -189,7 +195,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
   <a href="kurssi.php?id=<?= $kurssi_id ?>&week=<?= $week+1 ?>&year=<?= $year ?>">Seuraava viikko →</a>
 </p>
 
-<p>Viikko <?= $week ?> (<?= $weekStart ?> – <?= $weekEnd ?>)</p>
+<p>Viikko <?= $week ?> (<?= finDate($weekStart) ?> – <?= finDate($weekEnd) ?>)</p>
 
 <div class="calendar-grid">
 

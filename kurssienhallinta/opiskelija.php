@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
@@ -118,7 +124,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
 
   <div class="card">
     <div class="meta">
-      <div><strong>Syntymäaika:</strong> <span class="badge"><?= htmlspecialchars($student['syntymaaika']) ?></span></div>
+      <div><strong>Syntymäaika:</strong> <span class="badge"><?= finDate($student['syntymaaika']) ?></span></div>
       <div><strong>Vuosikurssi:</strong> <span class="badge"><?= htmlspecialchars($student['vuosikurssi']) ?></span></div>
     </div>
   </div>
@@ -133,7 +139,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
         <?php else: foreach($kurssit as $k): ?>
           <tr>
             <td><a href="kurssi.php?id=<?= (int)$k['kurssi_id'] ?>"><?= htmlspecialchars($k['kurssi_nimi']) ?></a></td>
-            <td><?= htmlspecialchars($k['aloituspaiva']) ?></td>
+            <td><?= finDate($k['aloituspaiva']) ?></td>
             <td><?= htmlspecialchars(trim(($k['op_etunimi']??'').' '.($k['op_sukunimi']??''))) ?: '—' ?></td>
           </tr>
         <?php endforeach; endif; ?>
@@ -150,7 +156,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
   <a href="opiskelija.php?id=<?= $oppilas_id ?>&week=<?= $week+1 ?>&year=<?= $year ?>">Seuraava viikko →</a>
 </p>
 
-<p>Viikko <?= $week ?> (<?= $weekStart ?> – <?= $weekEnd ?>)</p>
+<p>Viikko <?= $week ?> (<?= finDate($weekStart) ?> – <?= finDate($weekEnd) ?>)</p>
 
 <div class="calendar-grid">
     <?php

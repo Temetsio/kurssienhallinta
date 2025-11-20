@@ -1,5 +1,11 @@
 <?php
 require_once 'db.php';
+
+function finDate($date) {
+    if (!$date) return '';
+    return date("d.m.Y", strtotime($date));
+}
+
 $pdo = getPDO();
 $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi, syntymaaika, vuosikurssi FROM oppilaat ORDER BY sukunimi")->fetchAll();
 ?>
@@ -43,7 +49,7 @@ $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi, syntymaaika, vuosikurs
                   <?= htmlspecialchars($o['etunimi'].' '.$o['sukunimi']) ?>
                 </a>
               </td>
-              <td><?= htmlspecialchars($o['syntymaaika']) ?></td>
+              <td><?= finDate($o['syntymaaika']) ?></td>
               <td><?= htmlspecialchars($o['vuosikurssi']) ?></td>
             </tr>
             <?php endforeach; ?>
