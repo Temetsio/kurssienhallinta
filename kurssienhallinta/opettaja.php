@@ -186,7 +186,6 @@ foreach ($sessiot as $s) {
 
 </div>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const cellHeight = 60; 
@@ -204,11 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let daySessions = byDay[day];
 
         daySessions = daySessions.map(s => {
-            const [sh, sm] = s.alkuaika.split(":").map(Number);
-            const [eh, em] = s.loppuaika.split(":").map(Number);
-            s.start = sh * 60 + sm;
-            s.end = eh * 60 + em;
-            return s;
+            const [sh, sm] = (s.alkuaika || "00:00").split(":").map(Number);
+            const [eh, em] = (s.loppuaika || "00:00").split(":").map(Number);
+            return Object.assign({}, s, {
+                start: (isFinite(sh) ? sh : 0) * 60 + (isFinite(sm) ? sm : 0),
+                end: (isFinite(eh) ? eh : 0) * 60 + (isFinite(em) ? em : 0)
+            });
         });
 
         daySessions.sort((a, b) => a.start - b.start);
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
         daySessions.forEach(s => {
             let placed = false;
 
-            for (let i = 0; i < lanes; i++) {
+            for (let i = 0; i < lanes.length; i++) {
                 const last = lanes[i][lanes[i].length - 1];
                 if (last.end <= s.start) {
                     lanes[i].push(s);
@@ -234,34 +234,61 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        const totalLanes = lanes.length;
+        const totalLanes = Math.max(1, lanes.length);
 
         const column = document.querySelector('.day-column[data-day="' + day + '"]');
+        if (!column) return;
 
-        daySessions.forEach(s => {
-            const top = ((s.start - startHour * 60) / 60) * cellHeight;
-            const height = ((s.end - s.start) / 60) * cellHeight;
+        daySessions.forEach((s, idx) => {
+            let start = s.start;
+            let end = s.end;
+            if (end <= start) {
+                end = start + 30;
+            }
+
+            const top = ((start - startHour * 60) / 60) * cellHeight;
+            const height = Math.max(20, ((end - start) / 60) * cellHeight); 
 
             const width = 100 / totalLanes;
-            const left = width * s.lane;
+            const left = width * (s.lane || 0);
 
-            let div = document.createElement("a");
-            div.href = "kurssi.php?id=" + s.kurssi_id;
-            div.className = "session-box";
-            div.style.top = top + "px";
-            div.style.height = height + "px";
-            div.style.width = `calc(${width}% - 6px)`;
-            div.style.left = `calc(${left}% + 3px)`;
+            let targetHref = null;
+            if (s.kurssi_id !== undefined && s.kurssi_id !== null && s.kurssi_id !== "") {
+                targetHref = "kurssi.php?id=" + encodeURIComponent(s.kurssi_id);
+            } else if (s.kurssin_tunnus) {
+                targetHref = "kurssi.php?code=" + encodeURIComponent(s.kurssin_tunnus);
+            } else {
+                targetHref = "#";
+            }
 
-            div.innerHTML = `
-                <div class="session-title">${s.kurssi_nimi}</div>
-                <div>${s.alkuaika.substring(0,5)}–${s.loppuaika.substring(0,5)}</div>
-                <div class="session-room">${s.tila_nimi}</div>
+            let a = document.createElement("a");
+            a.href = targetHref;
+            a.className = "session-box";
+            a.style.top = top + "px";
+            a.style.height = height + "px";
+            a.style.width = `calc(${width}% - 6px)`;
+            a.style.left = `calc(${left}% + 3px)`;
+            a.style.zIndex = 100 + (s.lane || 0);
+
+            a.innerHTML = `
+                <div class="session-title">${escapeHtml(s.kurssi_nimi || s.kurssin_tunnus || '')}</div>
+                <div>${(s.alkuaika||'').substring(0,5)}–${(s.loppuaika||'').substring(0,5)}</div>
+                <div class="session-room">${escapeHtml(s.tila_nimi || '')}</div>
             `;
 
-            column.appendChild(div);
+            column.appendChild(a);
         });
     });
+
+    function escapeHtml(text) {
+        if (!text && text !== 0) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 });
 </script>
 
