@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2025 at 11:58 AM
+-- Generation Time: Nov 20, 2025 at 12:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -326,14 +326,16 @@ CREATE TABLE `nakyma_kurssien_aikataulu` (
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kurssin_aikataulu` (
-`sessio_id` int(11)
-,`kurssi_id` int(11)
+`kurssi_id` int(11)
+,`kurssi_nimi` varchar(100)
+,`kurssin_tunnus` varchar(20)
+,`tila_id` int(11)
+,`tila_nimi` varchar(50)
 ,`viikonpaiva` enum('Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai')
 ,`alkuaika` time
 ,`loppuaika` time
-,`created_at` timestamp
-,`tila_id` int(11)
-,`tila_nimi` varchar(50)
+,`aloituspaiva` date
+,`lopetuspaiva` date
 );
 
 -- --------------------------------------------------------
@@ -687,7 +689,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `nakyma_kurssin_aikataulu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_kurssin_aikataulu`  AS SELECT `ks`.`sessio_id` AS `sessio_id`, `ks`.`kurssi_id` AS `kurssi_id`, `ks`.`viikonpaiva` AS `viikonpaiva`, `ks`.`alkuaika` AS `alkuaika`, `ks`.`loppuaika` AS `loppuaika`, `ks`.`created_at` AS `created_at`, `ks`.`tila_id` AS `tila_id`, `t`.`tila_nimi` AS `tila_nimi` FROM (`kurssisessiot` `ks` join `tilat` `t` on(`t`.`tila_id` = `ks`.`tila_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_kurssin_aikataulu`  AS SELECT `k`.`kurssi_id` AS `kurssi_id`, `k`.`kurssi_nimi` AS `kurssi_nimi`, `k`.`kurssin_tunnus` AS `kurssin_tunnus`, `t`.`tila_id` AS `tila_id`, `t`.`tila_nimi` AS `tila_nimi`, `ks`.`viikonpaiva` AS `viikonpaiva`, `ks`.`alkuaika` AS `alkuaika`, `ks`.`loppuaika` AS `loppuaika`, `k`.`aloituspaiva` AS `aloituspaiva`, `k`.`lopetuspaiva` AS `lopetuspaiva` FROM ((`kurssit` `k` left join `kurssisessiot` `ks` on(`k`.`kurssi_id` = `ks`.`kurssi_id`)) left join `tilat` `t` on(`ks`.`tila_id` = `t`.`tila_id`)) ORDER BY `k`.`kurssi_id` ASC, `ks`.`viikonpaiva` ASC, `ks`.`alkuaika` ASC ;
 
 -- --------------------------------------------------------
 
