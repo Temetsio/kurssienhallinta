@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="fi">
-<head>
-    <meta charset="UTF-8">
-    <title>Kurssienhallinta</title>
-    <link rel="stylesheet" href="style.css"> <!-- valinnainen -->
-</head>
-<body>
-
+<?php
+// header.php — navigation fragment to be included into pages.
+// Put <link> and other head content in the main page's <head>.
+?>
 <header>
     <nav>
         <ul>
