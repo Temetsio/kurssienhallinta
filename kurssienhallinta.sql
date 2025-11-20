@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 19.11.2025 klo 08:45
--- Palvelimen versio: 10.4.32-MariaDB
+-- Generation Time: Nov 20, 2025 at 08:34 AM
+-- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `ilmoittautuminen`
+-- Table structure for table `ilmoittautuminen`
 --
 
 CREATE TABLE `ilmoittautuminen` (
@@ -35,7 +35,7 @@ CREATE TABLE `ilmoittautuminen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Vedos taulusta `ilmoittautuminen`
+-- Dumping data for table `ilmoittautuminen`
 --
 
 INSERT INTO `ilmoittautuminen` (`ilmoittautuminen_id`, `opiskelija_id`, `kurssi_id`, `ilmoittautumispaiva`) VALUES
@@ -151,7 +151,7 @@ INSERT INTO `ilmoittautuminen` (`ilmoittautuminen_id`, `opiskelija_id`, `kurssi_
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `kurssisessiot`
+-- Table structure for table `kurssisessiot`
 --
 
 CREATE TABLE `kurssisessiot` (
@@ -160,80 +160,80 @@ CREATE TABLE `kurssisessiot` (
   `viikonpaiva` enum('Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai') NOT NULL,
   `alkuaika` time NOT NULL,
   `loppuaika` time NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tila_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Vedos taulusta `kurssisessiot`
+-- Dumping data for table `kurssisessiot`
 --
 
-INSERT INTO `kurssisessiot` (`sessio_id`, `kurssi_id`, `viikonpaiva`, `alkuaika`, `loppuaika`, `created_at`) VALUES
-(1, 1, 'Maanantai', '08:00:00', '15:00:00', '2025-11-18 08:35:26'),
-(2, 1, 'Keskiviikko', '08:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(3, 2, 'Tiistai', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(4, 2, 'Torstai', '08:00:00', '12:30:00', '2025-11-18 08:35:26'),
-(5, 3, 'Maanantai', '11:00:00', '15:00:00', '2025-11-18 08:35:26'),
-(6, 3, 'Perjantai', '08:00:00', '13:30:00', '2025-11-18 08:35:26'),
-(7, 4, 'Tiistai', '09:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(8, 4, 'Torstai', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(9, 5, 'Keskiviikko', '09:30:00', '15:30:00', '2025-11-18 08:35:26'),
-(10, 5, 'Perjantai', '08:30:00', '13:00:00', '2025-11-18 08:35:26'),
-(11, 6, 'Maanantai', '10:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(12, 6, 'Keskiviikko', '12:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(13, 7, 'Tiistai', '08:30:00', '14:00:00', '2025-11-18 08:35:26'),
-(14, 7, 'Torstai', '08:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(15, 12, 'Maanantai', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(16, 12, 'Keskiviikko', '11:30:00', '16:00:00', '2025-11-18 08:35:26'),
-(17, 12, 'Perjantai', '08:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(18, 14, 'Tiistai', '09:30:00', '13:30:00', '2025-11-18 08:35:26'),
-(19, 14, 'Torstai', '10:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(20, 15, 'Maanantai', '08:00:00', '15:00:00', '2025-11-18 08:35:26'),
-(21, 15, 'Torstai', '10:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(22, 16, 'Keskiviikko', '08:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(23, 16, 'Perjantai', '12:00:00', '15:30:00', '2025-11-18 08:35:26'),
-(24, 17, 'Tiistai', '10:00:00', '15:00:00', '2025-11-18 08:35:26'),
-(25, 17, 'Torstai', '13:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(26, 18, 'Maanantai', '12:00:00', '15:30:00', '2025-11-18 08:35:26'),
-(27, 18, 'Keskiviikko', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(28, 19, 'Tiistai', '11:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(29, 19, 'Torstai', '08:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(30, 20, 'Maanantai', '09:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(31, 20, 'Keskiviikko', '12:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(32, 21, 'Perjantai', '08:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(33, 22, 'Torstai', '12:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(34, 23, 'Maanantai', '08:00:00', '11:30:00', '2025-11-18 08:35:26'),
-(35, 23, 'Torstai', '10:00:00', '12:30:00', '2025-11-18 08:35:26'),
-(36, 24, 'Tiistai', '10:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(37, 24, 'Keskiviikko', '11:00:00', '15:00:00', '2025-11-18 08:35:26'),
-(38, 25, 'Keskiviikko', '12:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(39, 26, 'Maanantai', '12:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(40, 26, 'Keskiviikko', '08:00:00', '10:30:00', '2025-11-18 08:35:26'),
-(41, 27, 'Tiistai', '08:00:00', '10:30:00', '2025-11-18 08:35:26'),
-(42, 27, 'Torstai', '12:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(43, 28, 'Maanantai', '09:30:00', '16:00:00', '2025-11-18 08:35:26'),
-(44, 28, 'Perjantai', '10:00:00', '15:30:00', '2025-11-18 08:35:26'),
-(45, 29, 'Tiistai', '11:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(46, 29, 'Torstai', '08:00:00', '13:00:00', '2025-11-18 08:35:26'),
-(47, 30, 'Maanantai', '10:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(48, 30, 'Keskiviikko', '08:00:00', '12:00:00', '2025-11-18 08:35:26'),
-(49, 30, 'Perjantai', '08:30:00', '11:30:00', '2025-11-18 08:35:26'),
-(50, 31, 'Tiistai', '11:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(51, 31, 'Torstai', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(52, 32, 'Perjantai', '12:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(53, 33, 'Maanantai', '08:00:00', '13:30:00', '2025-11-18 08:35:26'),
-(54, 33, 'Torstai', '10:00:00', '16:00:00', '2025-11-18 08:35:26'),
-(55, 34, 'Keskiviikko', '08:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(56, 35, 'Tiistai', '10:00:00', '14:30:00', '2025-11-18 08:35:26'),
-(57, 36, 'Maanantai', '08:00:00', '10:00:00', '2025-11-18 08:35:26'),
-(58, 36, 'Torstai', '12:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(59, 37, 'Tiistai', '08:00:00', '14:00:00', '2025-11-18 08:35:26'),
-(60, 37, 'Torstai', '09:30:00', '14:30:00', '2025-11-18 08:35:26'),
-(61, 38, 'Perjantai', '10:00:00', '12:00:00', '2025-11-18 08:35:26');
+INSERT INTO `kurssisessiot` (`sessio_id`, `kurssi_id`, `viikonpaiva`, `alkuaika`, `loppuaika`, `created_at`, `tila_id`) VALUES
+(1, 1, 'Maanantai', '11:00:00', '13:00:00', '2025-11-18 08:35:26', 1),
+(2, 1, 'Torstai', '08:00:00', '11:00:00', '2025-11-18 08:35:26', 1),
+(3, 2, 'Keskiviikko', '10:00:00', '13:30:00', '2025-11-18 08:35:26', 3),
+(4, 2, 'Torstai', '12:00:00', '16:00:00', '2025-11-18 08:35:26', 15),
+(5, 3, 'Maanantai', '13:00:00', '12:30:00', '2025-11-18 08:35:26', 14),
+(6, 3, 'Maanantai', '13:00:00', '12:30:00', '2025-11-18 08:35:26', 3),
+(7, 4, 'Tiistai', '12:30:00', '16:00:00', '2025-11-18 08:35:26', 8),
+(8, 4, 'Torstai', '08:30:00', '11:30:00', '2025-11-18 08:35:26', 14),
+(9, 5, 'Torstai', '14:00:00', '16:00:00', '2025-11-18 08:35:26', 2),
+(10, 5, 'Perjantai', '08:30:00', '13:00:00', '2025-11-18 08:35:26', 5),
+(11, 6, 'Maanantai', '08:00:00', '10:30:00', '2025-11-18 08:35:26', 6),
+(12, 6, 'Torstai', '12:00:00', '14:00:00', '2025-11-18 08:35:26', 6),
+(13, 7, 'Keskiviikko', '14:30:00', '16:00:00', '2025-11-18 08:35:26', 8),
+(14, 7, 'Perjantai', '08:00:00', '12:00:00', '2025-11-18 08:35:26', 1),
+(15, 12, 'Tiistai', '14:30:00', '16:00:00', '2025-11-18 08:35:26', 1),
+(16, 12, 'Torstai', '14:00:00', '16:00:00', '2025-11-18 08:35:26', 5),
+(17, 12, 'Maanantai', '13:30:00', '16:00:00', '2025-11-18 08:35:26', 8),
+(18, 14, 'Tiistai', '12:00:00', '14:00:00', '2025-11-18 08:35:26', 9),
+(19, 14, 'Perjantai', '12:30:00', '14:30:00', '2025-11-18 08:35:26', 3),
+(20, 15, 'Maanantai', '10:30:00', '10:00:00', '2025-11-18 08:35:26', 10),
+(21, 15, 'Torstai', '08:00:00', '13:00:00', '2025-11-18 08:35:26', 12),
+(22, 16, 'Keskiviikko', '13:30:00', '16:00:00', '2025-11-18 08:35:26', 2),
+(23, 16, 'Maanantai', '12:30:00', '16:30:00', '2025-11-18 08:35:26', 14),
+(24, 17, 'Tiistai', '08:30:00', '11:30:00', '2025-11-18 08:35:26', 12),
+(25, 17, 'Torstai', '16:30:00', '16:00:00', '2025-11-18 08:35:26', 12),
+(26, 18, 'Maanantai', '12:00:00', '15:30:00', '2025-11-18 08:35:26', 13),
+(27, 18, 'Keskiviikko', '10:00:00', '16:00:00', '2025-11-18 08:35:26', 13),
+(28, 19, 'Tiistai', '12:00:00', '16:00:00', '2025-11-18 08:35:26', 4),
+(29, 19, 'Torstai', '08:00:00', '10:30:00', '2025-11-18 08:35:26', 9),
+(30, 20, 'Maanantai', '09:00:00', '12:00:00', '2025-11-18 08:35:26', 15),
+(31, 20, 'Torstai', '11:30:00', '14:00:00', '2025-11-18 08:35:26', 15),
+(32, 21, 'Perjantai', '12:00:00', '16:00:00', '2025-11-18 08:35:26', 1),
+(33, 22, 'Torstai', '10:00:00', '14:30:00', '2025-11-18 08:35:26', 13),
+(34, 23, 'Maanantai', '13:00:00', '16:00:00', '2025-11-18 08:35:26', 1),
+(35, 23, 'Torstai', '10:00:00', '12:30:00', '2025-11-18 08:35:26', 3),
+(36, 24, 'Tiistai', '08:00:00', '11:00:00', '2025-11-18 08:35:26', 1),
+(37, 24, 'Keskiviikko', '08:30:00', '12:00:00', '2025-11-18 08:35:26', 14),
+(38, 25, 'Keskiviikko', '12:00:00', '16:00:00', '2025-11-18 08:35:26', 7),
+(39, 26, 'Maanantai', '12:00:00', '14:30:00', '2025-11-18 08:35:26', 7),
+(40, 26, 'Keskiviikko', '08:00:00', '10:30:00', '2025-11-18 08:35:26', 7),
+(41, 27, 'Tiistai', '11:00:00', '14:30:00', '2025-11-18 08:35:26', 1),
+(42, 27, 'Torstai', '14:00:00', '16:00:00', '2025-11-18 08:35:26', 2),
+(43, 28, 'Maanantai', '09:30:00', '16:00:00', '2025-11-18 08:35:26', 9),
+(44, 28, 'Perjantai', '08:00:00', '12:30:00', '2025-11-18 08:35:26', 3),
+(45, 29, 'Tiistai', '11:00:00', '14:30:00', '2025-11-18 08:35:26', 10),
+(46, 29, 'Torstai', '08:00:00', '12:00:00', '2025-11-18 08:35:26', 5),
+(47, 30, 'Maanantai', '10:00:00', '14:00:00', '2025-11-18 08:35:26', 11),
+(48, 30, 'Keskiviikko', '08:00:00', '12:00:00', '2025-11-18 08:35:26', 11),
+(49, 30, 'Perjantai', '08:30:00', '11:30:00', '2025-11-18 08:35:26', 11),
+(50, 31, 'Tiistai', '11:30:00', '16:00:00', '2025-11-18 08:35:26', 15),
+(51, 31, 'Torstai', '08:30:00', '15:00:00', '2025-11-18 08:35:26', 11),
+(52, 32, 'Perjantai', '12:00:00', '16:00:00', '2025-11-18 08:35:26', 6),
+(53, 33, 'Maanantai', '08:00:00', '13:30:00', '2025-11-18 08:35:26', 4),
+(54, 33, 'Torstai', '10:00:00', '16:00:00', '2025-11-18 08:35:26', 4),
+(55, 34, 'Keskiviikko', '08:30:00', '13:00:00', '2025-11-18 08:35:26', 2),
+(56, 35, 'Tiistai', '08:30:00', '12:00:00', '2025-11-18 08:35:26', 2),
+(57, 36, 'Maanantai', '08:00:00', '10:00:00', '2025-11-18 08:35:26', 1),
+(58, 36, 'Torstai', '12:00:00', '14:00:00', '2025-11-18 08:35:26', 1),
+(59, 37, 'Tiistai', '08:00:00', '14:00:00', '2025-11-18 08:35:26', 7),
+(60, 37, 'Torstai', '09:30:00', '14:30:00', '2025-11-18 08:35:26', 7);
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `kurssit`
+-- Table structure for table `kurssit`
 --
 
 CREATE TABLE `kurssit` (
@@ -248,35 +248,35 @@ CREATE TABLE `kurssit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Vedos taulusta `kurssit`
+-- Dumping data for table `kurssit`
 --
 
 INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuvaus`, `aloituspaiva`, `lopetuspaiva`, `opettaja_id`, `tila_id`) VALUES
 (1, 'MAT101', 'Matematiikan perusteet', 'Peruslaskutoimitukset ja algebra', '2025-09-01', '2026-05-29', 1, 1),
 (2, 'OHJ201', 'Ohjelmointi 1', 'Johdatus ohjelmointiin Python-kielellä', '2025-09-01', '2026-05-29', 2, 2),
 (3, 'FYS301', 'Fysiikka 1', 'Mekaniikka ja lämpöoppi', '2025-09-01', '2026-05-29', 3, 3),
-(4, 'KEM401', 'Kemia 1', 'Orgaaninen kemia', '2025-09-01', '2026-05-29', 4, 4),
+(4, 'KEM401', 'Kemia 1', 'Orgaaninen kemia', '2025-09-01', '2026-05-29', 4, 14),
 (5, 'TIK501', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-09-01', '2026-05-29', 5, 5),
-(6, 'MAT201', 'Matematiikka 2', 'Trigonometria ja analyyttinen geometria', '2025-09-01', '2026-05-29', 1, 1),
+(6, 'MAT201', 'Matematiikka 2', 'Trigonometria ja analyyttinen geometria', '2025-09-01', '2026-05-29', 1, 6),
 (7, 'OHJ301', 'Ohjelmointi 2', 'Olioohjelmointi Java-kielellä', '2025-09-01', '2026-05-29', 2, 2),
-(12, 'MAT301', 'Matematiikka 3', 'Differentiaali- ja integraalilaskenta', '2025-09-01', '2026-05-29', 1, 15),
-(14, 'OHJ401', 'Web-ohjelmointi', 'HTML, CSS ja JavaScript', '2025-09-01', '2026-05-29', 2, 14),
-(15, 'FYS201', 'Fysiikka 2', 'Sähköoppi ja magnetismi', '2025-09-01', '2026-05-29', 3, 13),
-(16, 'FYS401', 'Fysiikka 4', 'Aaltoliike ja optiikka', '2025-09-01', '2026-05-29', 3, 12),
-(17, 'KEM201', 'Kemia 2', 'Epäorgaaninen kemia ja hapot', '2025-09-01', '2026-05-29', 4, 11),
-(18, 'KEM301', 'Kemia 3', 'Orgaaninen kemia', '2025-09-01', '2026-05-29', 4, 10),
-(19, 'TIK201', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-09-01', '2026-05-29', 5, 9),
-(20, 'TIK301', 'Tietoverkot', 'Internet ja verkkoprotokollat', '2025-09-01', '2026-05-29', 5, 8),
+(12, 'MAT301', 'Matematiikka 3', 'Differentiaali- ja integraalilaskenta', '2025-09-01', '2026-05-29', 1, 8),
+(14, 'OHJ401', 'Web-ohjelmointi', 'HTML, CSS ja JavaScript', '2025-09-01', '2026-05-29', 2, 9),
+(15, 'FYS201', 'Fysiikka 2', 'Sähköoppi ja magnetismi', '2025-09-01', '2026-05-29', 3, 10),
+(16, 'FYS401', 'Fysiikka 4', 'Aaltoliike ja optiikka', '2025-09-01', '2026-05-29', 3, 14),
+(17, 'KEM201', 'Kemia 2', 'Epäorgaaninen kemia ja hapot', '2025-09-01', '2026-05-29', 4, 12),
+(18, 'KEM301', 'Kemia 3', 'Orgaaninen kemia', '2025-09-01', '2026-05-29', 4, 13),
+(19, 'TIK201', 'Tietokannat', 'SQL ja tietokantasuunnittelu', '2025-09-01', '2026-05-29', 5, 14),
+(20, 'TIK301', 'Tietoverkot', 'Internet ja verkkoprotokollat', '2025-09-01', '2026-05-29', 5, 15),
 (21, 'KUV101', 'Kuvataide 1', 'Piirustus ja maalaus', '2025-09-01', '2026-05-29', 6, 1),
 (22, 'KUV201', 'Kuvataide 2', 'Digitaalinen kuvankäsittely', '2025-09-01', '2026-05-29', 14, 2),
 (23, 'ÄI201', 'Äidinkieli 2', 'Kielioppi ja kirjoittaminen', '2025-09-01', '2026-05-29', 7, 3),
-(24, 'ÄI301', 'Kirjallisuus 1', 'Suomalainen kirjallisuus', '2025-09-01', '2026-05-29', 10, 3),
-(25, 'YH101', 'Yhteiskuntaoppi 1', 'Suomen yhteiskuntajärjestelmä', '2025-09-01', '2026-05-29', 8, 4),
-(26, 'RUO201', 'Ruotsi 2', 'Keskustelutaidot', '2025-09-01', '2026-05-29', 9, 13),
-(27, 'RUO301', 'Ruotsi 3', 'Kirjoittaminen ja ymmärtäminen', '2025-09-01', '2026-05-29', 9, 5),
-(28, 'HIS201', 'Historia 2', 'Suomen itsenäisyys', '2025-09-01', '2026-05-29', 11, 15),
-(29, 'HIS301', 'Historia 3', 'Toinen maailmansota', '2025-09-01', '2026-05-29', 11, 14),
-(30, 'ENG301', 'Englanti 3', 'Keskustelutaidot', '2025-09-01', '2026-05-29', 12, 2),
+(24, 'ÄI301', 'Kirjallisuus 1', 'Suomalainen kirjallisuus', '2025-09-01', '2026-05-29', 10, 5),
+(25, 'YH101', 'Yhteiskuntaoppi 1', 'Suomen yhteiskuntajärjestelmä', '2025-09-01', '2026-05-29', 8, 7),
+(26, 'RUO201', 'Ruotsi 2', 'Keskustelutaidot', '2025-09-01', '2026-05-29', 9, 7),
+(27, 'RUO301', 'Ruotsi 3', 'Kirjoittaminen ja ymmärtäminen', '2025-09-01', '2026-05-29', 9, 8),
+(28, 'HIS201', 'Historia 2', 'Suomen itsenäisyys', '2025-09-01', '2026-05-29', 11, 9),
+(29, 'HIS301', 'Historia 3', 'Toinen maailmansota', '2025-09-01', '2026-05-29', 11, 10),
+(30, 'ENG301', 'Englanti 3', 'Keskustelutaidot', '2025-09-01', '2026-05-29', 12, 11),
 (31, 'ENG401', 'Englanti 4', 'Akateeminen kirjoittaminen', '2025-09-01', '2026-05-29', 13, 2),
 (32, 'KÄS101', 'Käsityö 1', 'Puutyöt', '2025-09-01', '2026-05-29', 15, 6),
 (33, 'MAA101', 'Maantieto 1', 'Fyysinen maantieto', '2025-09-01', '2026-05-29', 16, 4),
@@ -289,7 +289,7 @@ INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuva
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_kaynnissa_olevat_kurssit`
+-- Stand-in structure for view `nakyma_kaynnissa_olevat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kaynnissa_olevat_kurssit` (
@@ -305,7 +305,7 @@ CREATE TABLE `nakyma_kaynnissa_olevat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_kurssien_aikataulu`
+-- Stand-in structure for view `nakyma_kurssien_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kurssien_aikataulu` (
@@ -323,7 +323,7 @@ CREATE TABLE `nakyma_kurssien_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_kurssit_taydellinen`
+-- Stand-in structure for view `nakyma_kurssit_taydellinen`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_kurssit_taydellinen` (
@@ -344,13 +344,12 @@ CREATE TABLE `nakyma_kurssit_taydellinen` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_opettajan_aikataulu`
+-- Stand-in structure for view `nakyma_opettajan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opettajan_aikataulu` (
 `opettaja_id` int(11)
 ,`opettaja` varchar(101)
-,`kurssi_id` int(11)
 ,`kurssi_nimi` varchar(100)
 ,`kurssin_tunnus` varchar(20)
 ,`tila_nimi` varchar(50)
@@ -364,7 +363,7 @@ CREATE TABLE `nakyma_opettajan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_opettajat_kurssit`
+-- Stand-in structure for view `nakyma_opettajat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opettajat_kurssit` (
@@ -378,7 +377,7 @@ CREATE TABLE `nakyma_opettajat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_opiskelijan_aikataulu`
+-- Stand-in structure for view `nakyma_opiskelijan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijan_aikataulu` (
@@ -398,7 +397,7 @@ CREATE TABLE `nakyma_opiskelijan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_opiskelijat_aktiivisuus`
+-- Stand-in structure for view `nakyma_opiskelijat_aktiivisuus`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijat_aktiivisuus` (
@@ -412,7 +411,7 @@ CREATE TABLE `nakyma_opiskelijat_aktiivisuus` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_opiskelijat_kurssit`
+-- Stand-in structure for view `nakyma_opiskelijat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_opiskelijat_kurssit` (
@@ -430,7 +429,7 @@ CREATE TABLE `nakyma_opiskelijat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_tilan_aikataulu`
+-- Stand-in structure for view `nakyma_tilan_aikataulu`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tilan_aikataulu` (
@@ -450,7 +449,7 @@ CREATE TABLE `nakyma_tilan_aikataulu` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_tilat_kaytto`
+-- Stand-in structure for view `nakyma_tilat_kaytto`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tilat_kaytto` (
@@ -466,7 +465,7 @@ CREATE TABLE `nakyma_tilat_kaytto` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_tulevat_kurssit`
+-- Stand-in structure for view `nakyma_tulevat_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_tulevat_kurssit` (
@@ -484,7 +483,7 @@ CREATE TABLE `nakyma_tulevat_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Näkymän vararakenne `nakyma_ylibuukatut_kurssit`
+-- Stand-in structure for view `nakyma_ylibuukatut_kurssit`
 -- (See below for the actual view)
 --
 CREATE TABLE `nakyma_ylibuukatut_kurssit` (
@@ -500,7 +499,7 @@ CREATE TABLE `nakyma_ylibuukatut_kurssit` (
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `opettajat`
+-- Table structure for table `opettajat`
 --
 
 CREATE TABLE `opettajat` (
@@ -511,7 +510,7 @@ CREATE TABLE `opettajat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Vedos taulusta `opettajat`
+-- Dumping data for table `opettajat`
 --
 
 INSERT INTO `opettajat` (`opettaja_id`, `etunimi`, `sukunimi`, `aine`) VALUES
@@ -521,25 +520,25 @@ INSERT INTO `opettajat` (`opettaja_id`, `etunimi`, `sukunimi`, `aine`) VALUES
 (4, 'Anna', 'Mäkinen', 'Kemia'),
 (5, 'Juha', 'Lehtonen', 'Tietotekniikka'),
 (6, 'Riitta', 'Palmunen', 'Kuvataide'),
-(7, 'Juhana', 'Järvinen', 'Äidinkieli ja kirjallisuus'),
-(8, 'Asta', 'Järvinen', 'Yhteiskuntaoppi'),
+(7, 'Juhana', 'Laine', 'Äidinkieli ja kirjallisuus'),
+(8, 'Asta', 'Palmroth', 'Yhteiskuntaoppi'),
 (9, 'Alina', 'Virtanen', 'Ruotsi'),
 (10, 'Heidi', 'Järvinen', 'Äidinkieli ja kirjallisuus'),
-(11, 'Riitta', 'Palmunen', 'Historia'),
-(12, 'Karita', 'Järvinen', 'Englanti'),
-(13, 'Ari', 'Roos', 'Englanti'),
-(14, 'Riitta', 'Palmunen', 'Kuvataide'),
+(11, 'Kirsti', 'Heikkilä', 'Historia'),
+(12, 'Karita', 'Suutarinen', 'Englanti'),
+(13, 'Ari', 'Haapamaa', 'Englanti'),
+(14, 'Marika', 'Salminen', 'Kuvataide'),
 (15, 'Minna', 'Lappalainen', 'Käsityö'),
 (16, 'Karita', 'Palmunen', 'Maantieto'),
 (17, 'Riitta', 'Järvi', 'Uskonto'),
-(18, 'Alina', 'Roos', 'Uskonto'),
+(18, 'Alina', 'Järvenpää', 'Uskonto'),
 (19, 'Julia', 'Roos', 'Liikunta'),
-(20, 'Julia', 'Riihko', 'Biologia');
+(20, 'Juulia', 'Riihko', 'Biologia');
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `oppilaat`
+-- Table structure for table `oppilaat`
 --
 
 CREATE TABLE `oppilaat` (
@@ -551,7 +550,7 @@ CREATE TABLE `oppilaat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Vedos taulusta `oppilaat`
+-- Dumping data for table `oppilaat`
 --
 
 INSERT INTO `oppilaat` (`oppilas_id`, `etunimi`, `sukunimi`, `syntymaaika`, `vuosikurssi`) VALUES
@@ -617,7 +616,7 @@ INSERT INTO `oppilaat` (`oppilas_id`, `etunimi`, `sukunimi`, `syntymaaika`, `vuo
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `tilat`
+-- Table structure for table `tilat`
 --
 
 CREATE TABLE `tilat` (
@@ -627,7 +626,7 @@ CREATE TABLE `tilat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Vedos taulusta `tilat`
+-- Dumping data for table `tilat`
 --
 
 INSERT INTO `tilat` (`tila_id`, `tila_nimi`, `paikkoja`) VALUES
@@ -650,7 +649,7 @@ INSERT INTO `tilat` (`tila_id`, `tila_nimi`, `paikkoja`) VALUES
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_kaynnissa_olevat_kurssit`
+-- Structure for view `nakyma_kaynnissa_olevat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_kaynnissa_olevat_kurssit`;
 
@@ -659,7 +658,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_kurssien_aikataulu`
+-- Structure for view `nakyma_kurssien_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_kurssien_aikataulu`;
 
@@ -668,7 +667,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_kurssit_taydellinen`
+-- Structure for view `nakyma_kurssit_taydellinen`
 --
 DROP TABLE IF EXISTS `nakyma_kurssit_taydellinen`;
 
@@ -677,16 +676,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_opettajan_aikataulu`
+-- Structure for view `nakyma_opettajan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_opettajan_aikataulu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_opettajan_aikataulu`  AS SELECT `o`.`opettaja_id` AS `opettaja_id`, concat(`o`.`etunimi`,' ',`o`.`sukunimi`) AS `opettaja`, `k`.`kurssi_id` AS `kurssi_id`, `k`.`kurssi_nimi` AS `kurssi_nimi`, `k`.`kurssin_tunnus` AS `kurssin_tunnus`, `t`.`tila_nimi` AS `tila_nimi`, `s`.`viikonpaiva` AS `viikonpaiva`, `s`.`alkuaika` AS `alkuaika`, `s`.`loppuaika` AS `loppuaika`, `k`.`aloituspaiva` AS `aloituspaiva`, `k`.`lopetuspaiva` AS `lopetuspaiva` FROM (((`opettajat` `o` join `kurssit` `k` on(`o`.`opettaja_id` = `k`.`opettaja_id`)) join `tilat` `t` on(`k`.`tila_id` = `t`.`tila_id`)) join `kurssisessiot` `s` on(`k`.`kurssi_id` = `s`.`kurssi_id`)) ORDER BY `o`.`opettaja_id` ASC, field(`s`.`viikonpaiva`,'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai') ASC, `s`.`alkuaika` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nakyma_opettajan_aikataulu`  AS SELECT `o`.`opettaja_id` AS `opettaja_id`, concat(`o`.`etunimi`,' ',`o`.`sukunimi`) AS `opettaja`, `k`.`kurssi_nimi` AS `kurssi_nimi`, `k`.`kurssin_tunnus` AS `kurssin_tunnus`, `t`.`tila_nimi` AS `tila_nimi`, `s`.`viikonpaiva` AS `viikonpaiva`, `s`.`alkuaika` AS `alkuaika`, `s`.`loppuaika` AS `loppuaika`, `k`.`aloituspaiva` AS `aloituspaiva`, `k`.`lopetuspaiva` AS `lopetuspaiva` FROM (((`opettajat` `o` join `kurssit` `k` on(`o`.`opettaja_id` = `k`.`opettaja_id`)) join `tilat` `t` on(`k`.`tila_id` = `t`.`tila_id`)) join `kurssisessiot` `s` on(`k`.`kurssi_id` = `s`.`kurssi_id`)) ORDER BY `o`.`opettaja_id` ASC, field(`s`.`viikonpaiva`,'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai') ASC, `s`.`alkuaika` ASC ;
 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_opettajat_kurssit`
+-- Structure for view `nakyma_opettajat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_opettajat_kurssit`;
 
@@ -695,7 +694,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_opiskelijan_aikataulu`
+-- Structure for view `nakyma_opiskelijan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijan_aikataulu`;
 
@@ -704,7 +703,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_opiskelijat_aktiivisuus`
+-- Structure for view `nakyma_opiskelijat_aktiivisuus`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijat_aktiivisuus`;
 
@@ -713,7 +712,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_opiskelijat_kurssit`
+-- Structure for view `nakyma_opiskelijat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_opiskelijat_kurssit`;
 
@@ -722,7 +721,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_tilan_aikataulu`
+-- Structure for view `nakyma_tilan_aikataulu`
 --
 DROP TABLE IF EXISTS `nakyma_tilan_aikataulu`;
 
@@ -731,7 +730,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_tilat_kaytto`
+-- Structure for view `nakyma_tilat_kaytto`
 --
 DROP TABLE IF EXISTS `nakyma_tilat_kaytto`;
 
@@ -740,7 +739,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_tulevat_kurssit`
+-- Structure for view `nakyma_tulevat_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_tulevat_kurssit`;
 
@@ -749,7 +748,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Näkymän rakenne `nakyma_ylibuukatut_kurssit`
+-- Structure for view `nakyma_ylibuukatut_kurssit`
 --
 DROP TABLE IF EXISTS `nakyma_ylibuukatut_kurssit`;
 
@@ -850,24 +849,24 @@ ALTER TABLE `tilat`
   MODIFY `tila_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Rajoitteet vedostauluille
+-- Constraints for dumped tables
 --
 
 --
--- Rajoitteet taululle `ilmoittautuminen`
+-- Constraints for table `ilmoittautuminen`
 --
 ALTER TABLE `ilmoittautuminen`
   ADD CONSTRAINT `ilmoittautuminen_ibfk_1` FOREIGN KEY (`opiskelija_id`) REFERENCES `oppilaat` (`oppilas_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `ilmoittautuminen_ibfk_2` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`kurssi_id`) ON DELETE CASCADE;
 
 --
--- Rajoitteet taululle `kurssisessiot`
+-- Constraints for table `kurssisessiot`
 --
 ALTER TABLE `kurssisessiot`
   ADD CONSTRAINT `kurssisessiot_ibfk_1` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`kurssi_id`) ON DELETE CASCADE;
 
 --
--- Rajoitteet taululle `kurssit`
+-- Constraints for table `kurssit`
 --
 ALTER TABLE `kurssit`
   ADD CONSTRAINT `kurssit_ibfk_1` FOREIGN KEY (`opettaja_id`) REFERENCES `opettajat` (`opettaja_id`),
