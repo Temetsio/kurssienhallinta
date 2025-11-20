@@ -28,7 +28,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
       <a href="oppilaat.php">Oppilaat</a>
       <a href="opettajat.php">Opettajat</a>
       <a href="tilat.php">Tilat</a>
-      <a href="admin.php" class="active">Admin</a>
+      <a href="admin.php" class="active">Hallinta</a>
     </div>
 
     <a class="back" href="index.php">← Takaisin</a>

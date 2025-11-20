@@ -39,7 +39,7 @@ $kurssit = $stmt->fetchAll();
       <a href="oppilaat.php">Oppilaat</a>
       <a href="opettajat.php">Opettajat</a>
       <a href="tilat.php">Tilat</a>
-      <a href="admin.php">Admin</a>
+      <a href="admin.php">Hallinta</a>
     </div>
 
     <a class="back" href="oppilaat.php">← Takaisin</a>
