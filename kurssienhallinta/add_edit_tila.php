@@ -2,6 +2,9 @@
 require_once 'db.php';
 $pdo = getPDO();
 
+$successMessage = "";
+$errorMessage = "";
+
 $tila = [
   'tila_id' => null,
   'tila_nimi' => '',
@@ -15,16 +18,31 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $data = [$_POST['tila_nimi'], $_POST['paikkoja']];
-  if (!empty($_POST['tila_id'])) {
-    $data[] = $_POST['tila_id'];
-    $stmt = $pdo->prepare("UPDATE tilat SET tila_nimi=?, paikkoja=? WHERE tila_id=?");
+
+  $tila_id  = $_POST['tila_id'] ?? null;
+  $nimi     = trim($_POST['tila_nimi']);
+  $paikat   = trim($_POST['paikkoja']);
+
+  if ($nimi === "" || $paikat === "") {
+      $errorMessage = "Kaikki kentät ovat pakollisia.";
   } else {
-    $stmt = $pdo->prepare("INSERT INTO tilat (tila_nimi, paikkoja) VALUES (?,?)");
+      try {
+          if (!empty($tila_id)) {
+              // Päivitä
+              $stmt = $pdo->prepare("UPDATE tilat SET tila_nimi=?, paikkoja=? WHERE tila_id=?");
+              $stmt->execute([$nimi, $paikat, $tila_id]);
+              $successMessage = "Tila päivitettiin onnistuneesti!";
+          } else {
+              // Lisää uusi
+              $stmt = $pdo->prepare("INSERT INTO tilat (tila_nimi, paikkoja) VALUES (?,?)");
+              $stmt->execute([$nimi, $paikat]);
+              $successMessage = "Uusi tila lisättiin onnistuneesti!";
+              $tila = ['tila_id'=>null, 'tila_nimi'=>'', 'paikkoja'=>''];
+          }
+      } catch (Exception $e) {
+          $errorMessage = "Tallennus epäonnistui: " . $e->getMessage();
+      }
   }
-  $stmt->execute($data);
-  header("Location: tilat.php");
-  exit;
 }
 ?>
 <!doctype html>
@@ -33,9 +51,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="utf-8">
   <title><?= $tila['tila_id'] ? 'Muokkaa tilaa' : 'Lisää tila' ?></title>
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .msg {
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        opacity: 1;
+        transition: opacity 1s ease-out;
+        max-width: 350px;
+    }
+    .msg-success {
+        background: #e7ffe7;
+        border: 1px solid #67c567;
+        color: #2d662d;
+    }
+    .msg-error {
+        background: #ffe5e5;
+        border: 1px solid #d9534f;
+        color: #b32424;
+    }
+    .fade-out {
+        opacity: 0 !important;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+
     <div class="nav">
       <a href="index.php">Kurssit</a>
       <a href="oppilaat.php">Oppilaat</a>
@@ -48,6 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1 class="page-title">
       <?= $tila['tila_id'] ? 'Muokkaa tilaa' : 'Lisää uusi tila' ?>
     </h1>
+
+    <?php if (!empty($successMessage)): ?>
+      <div class="msg msg-success"><?= $successMessage ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($errorMessage)): ?>
+      <div class="msg msg-error"><?= $errorMessage ?></div>
+    <?php endif; ?>
 
     <form method="post" class="card form">
       <input type="hidden" name="tila_id" value="<?= htmlspecialchars($tila['tila_id']) ?>">
@@ -63,5 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button class="button">💾 Tallenna</button>
     </form>
   </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const msg = document.querySelector(".msg-success, .msg-error");
+    if (msg) {
+        setTimeout(() => {
+            msg.classList.add("fade-out");
+        }, 3000);
+    }
+});
+</script>
+
 </body>
 </html>

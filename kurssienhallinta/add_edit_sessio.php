@@ -104,36 +104,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="utf-8">
   <title><?= $id ? "Muokkaa sessiota" : "Lisää sessio" ?></title>
   <link rel="stylesheet" href="styles.css">
-
   <style>
+    .msg {
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        opacity: 1;
+        transition: opacity 1s ease-out;
+        max-width: 350px;
+    }
+
     .msg-success {
-        background: #d4f8d4;
-        border: 2px solid #5cb85c;
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 6px;
+        background: #e7ffe7;
+        border: 1px solid #67c567;
         color: #2d662d;
     }
+
     .msg-error {
         background: #ffe5e5;
-        border: 2px solid #d9534f;
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 6px;
+        border: 1px solid #d9534f;
+        color: #b32424;
     }
-  </style>
+
+    .fade-out {
+        opacity: 0 !important;
+    }
+</style>
+
 </head>
 <body>
 <div class="container">
   <a class="back" href="admin.php">← Takaisin</a>
-  <h1 class="page-title"><?= $id ? "✏️ Muokkaa sessiota" : "➕ Lisää uusi sessio" ?></h1>
+  <h1 class="page-title"><?= $id ? "Muokkaa sessiota" : "Lisää uusi sessio" ?></h1>
 
   <?php if (!empty($successMessage)): ?>
-      <div class="msg-success"><?= $successMessage ?></div>
+      <div class="msg msg-success"><?= $successMessage ?></div>
   <?php endif; ?>
 
   <?php if (!empty($errorMessage)): ?>
-      <div class="msg-error"><?= $errorMessage ?></div>
+      <div class="msg msg-error"><?= $errorMessage ?></div>
   <?php endif; ?>
 
 
@@ -178,5 +188,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button class="button" type="submit">💾 Tallenna</button>
   </form>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const msg = document.querySelector(".msg-success, .msg-error");
+    if (msg) {
+        setTimeout(() => {
+            msg.classList.add("fade-out");
+        }, 3000); // 3 sekuntia näkyvissä
+    }
+});
+</script>
 </body>
 </html>

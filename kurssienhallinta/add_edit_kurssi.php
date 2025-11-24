@@ -3,10 +3,18 @@ require_once 'db.php';
 
 function finDate($date) {
     if (!$date) return '';
-    return date("d.m.Y", strtotime($date));
+    return date("d.m.Y", strtotime($date)); // Suomalainen formaatti näyttöön
+}
+
+function dateForInput($date) {
+    if (!$date) return '';
+    return date("Y-m-d", strtotime($date)); // date-input vaatii tämän
 }
 
 $pdo = getPDO();
+
+$successMessage = "";
+$errorMessage = "";
 
 $opettajat = $pdo->query("SELECT opettaja_id, etunimi, sukunimi FROM opettajat ORDER BY sukunimi")->fetchAll();
 $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")->fetchAll();
@@ -29,25 +37,68 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $data = [
-    $_POST['kurssin_tunnus'],
-    $_POST['kurssi_nimi'],
-    $_POST['kurssikuvaus'],
-    $_POST['aloituspaiva'],
-    $_POST['lopetuspaiva'],
-    $_POST['opettaja_id'],
-    $_POST['tila_id']
+
+  $kurssi_id     = $_POST['kurssi_id'] ?? null;
+  $tunnus        = trim($_POST['kurssin_tunnus']);
+  $nimi          = trim($_POST['kurssi_nimi']);
+  $kuvaus        = trim($_POST['kurssikuvaus']);
+  $aloitus       = trim($_POST['aloituspaiva']);
+  $lopetus       = trim($_POST['lopetuspaiva']);
+  $opettaja_id   = trim($_POST['opettaja_id']);
+  $tila_id       = trim($_POST['tila_id']);
+
+  // Palautetaan lomakkeen tiedot takaisin näkymään
+  $kurssi = [
+      'kurssi_id' => $kurssi_id,
+      'kurssin_tunnus' => $tunnus,
+      'kurssi_nimi' => $nimi,
+      'kurssikuvaus' => $kuvaus,
+      'aloituspaiva' => $aloitus,
+      'lopetuspaiva' => $lopetus,
+      'opettaja_id' => $opettaja_id,
+      'tila_id' => $tila_id
   ];
-  if (!empty($_POST['kurssi_id'])) {
-    $data[] = $_POST['kurssi_id'];
-    $stmt = $pdo->prepare("UPDATE kurssit SET kurssin_tunnus=?, kurssi_nimi=?, kurssikuvaus=?, aloituspaiva=?, lopetuspaiva=?, opettaja_id=?, tila_id=? WHERE kurssi_id=?");
+
+  if ($tunnus === "" || $nimi === "" || $aloitus === "" || $lopetus === "" || $opettaja_id === "" || $tila_id === "") {
+      $errorMessage = "Kaikki pakolliset kentät tulee täyttää.";
   } else {
-    $stmt = $pdo->prepare("INSERT INTO kurssit (kurssin_tunnus, kurssi_nimi, kurssikuvaus, aloituspaiva, lopetuspaiva, opettaja_id, tila_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      try {
+          if (!empty($kurssi_id)) {
+              $stmt = $pdo->prepare("
+                  UPDATE kurssit
+                  SET kurssin_tunnus=?, kurssi_nimi=?, kurssikuvaus=?, aloituspaiva=?, lopetuspaiva=?, opettaja_id=?, tila_id=?
+                  WHERE kurssi_id=?
+              ");
+              $stmt->execute([$tunnus, $nimi, $kuvaus, $aloitus, $lopetus, $opettaja_id, $tila_id, $kurssi_id]);
+
+              $successMessage = "Kurssi päivitettiin onnistuneesti!";
+          } else {
+              $stmt = $pdo->prepare("
+                  INSERT INTO kurssit (kurssin_tunnus, kurssi_nimi, kurssikuvaus, aloituspaiva, lopetuspaiva, opettaja_id, tila_id)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)
+              ");
+              $stmt->execute([$tunnus, $nimi, $kuvaus, $aloitus, $lopetus, $opettaja_id, $tila_id]);
+
+              $successMessage = "Uusi kurssi lisättiin onnistuneesti!";
+
+              // Tyhjennä lomake lisäyksen jälkeen
+              $kurssi = [
+                'kurssi_id' => null,
+                'kurssin_tunnus' => '',
+                'kurssi_nimi' => '',
+                'kurssikuvaus' => '',
+                'aloituspaiva' => '',
+                'lopetuspaiva' => '',
+                'opettaja_id' => '',
+                'tila_id' => ''
+              ];
+          }
+      } catch (Exception $e) {
+          $errorMessage = "Tallennus epäonnistui: " . $e->getMessage();
+      }
   }
-  $stmt->execute($data);
-  header("Location: index.php");
-  exit;
 }
+
 ?>
 <!doctype html>
 <html lang="fi">
@@ -55,11 +106,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="utf-8">
   <title><?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää kurssi' ?></title>
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .msg {
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        opacity: 1;
+        transition: opacity 1s ease-out;
+        max-width: 350px;
+    }
+    .msg-success {
+        background: #e7ffe7;
+        border: 1px solid #67c567;
+        color: #2d662d;
+    }
+    .msg-error {
+        background: #ffe5e5;
+        border: 1px solid #d9534f;
+        color: #b32424;
+    }
+    .fade-out {
+        opacity: 0 !important;
+    }
+  </style>
+
 </head>
 <body>
   <div class="container">
+
     <div class="nav">
-      <a href="index.php">Kurssit</a>
+      <a href="index.php" class="active">Kurssit</a>
       <a href="oppilaat.php">Oppilaat</a>
       <a href="opettajat.php">Opettajat</a>
       <a href="tilat.php">Tilat</a>
@@ -70,6 +148,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1 class="page-title">
       <?= $kurssi['kurssi_id'] ? 'Muokkaa kurssia' : 'Lisää uusi kurssi' ?>
     </h1>
+
+    <?php if (!empty($successMessage)): ?>
+      <div class="msg msg-success"><?= $successMessage ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($errorMessage)): ?>
+      <div class="msg msg-error"><?= $errorMessage ?></div>
+    <?php endif; ?>
+
 
     <form method="post" class="card form">
       <input type="hidden" name="kurssi_id" value="<?= htmlspecialchars($kurssi['kurssi_id']) ?>">
@@ -88,11 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="form-row">
         <label>Alkaa
-          <input type="date" name="aloituspaiva" value="<?= finDate($kurssi['aloituspaiva']) ?>" required>
+          <input type="date" name="aloituspaiva" value="<?= dateForInput($kurssi['aloituspaiva']) ?>" required>
         </label>
 
         <label>Loppuu
-          <input type="date" name="lopetuspaiva" value="<?= finDate($kurssi['lopetuspaiva']) ?>" required>
+          <input type="date" name="lopetuspaiva" value="<?= dateForInput($kurssi['lopetuspaiva']) ?>" required>
         </label>
       </div>
 
@@ -121,5 +208,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button class="button">💾 Tallenna</button>
     </form>
   </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const msg = document.querySelector(".msg-success, .msg-error");
+    if (msg) {
+        setTimeout(() => {
+            msg.classList.add("fade-out");
+        }, 3000);
+    }
+});
+</script>
+
 </body>
 </html>
