@@ -2,16 +2,20 @@
 include 'db.php';
 include 'header.php';
 
-// Lisää opettaja
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nimi = $_POST['nimi'];
-    $stmt = $mysqli->prepare("INSERT INTO opettajat (nimi) VALUES (?)");
-    $stmt->bind_param("s", $nimi);
-    $stmt->execute();
-    $stmt->close();
+    $nimi = trim($_POST['nimi']);
+
+    if ($nimi !== '') {
+        if ($stmt = $mysqli->prepare("INSERT INTO opettajat (nimi) VALUES (?)")) {
+            $stmt->bind_param("s", $nimi);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            echo "Virhe SQL-lauseessa: " . $mysqli->error;
+        }
+    }
 }
 
-// Hae opettajat
 $opettajat = $mysqli->query("SELECT * FROM opettajat");
 ?>
 <main>
@@ -24,8 +28,10 @@ $opettajat = $mysqli->query("SELECT * FROM opettajat");
     <h2>Opettajat</h2>
     <table border="1">
         <tr><th>Nimi</th></tr>
-        <?php while($r = $opettajat->fetch_assoc()): ?>
-            <tr><td><?= $r['nimi'] ?></td></tr>
+        <?php while ($r = $opettajat->fetch_assoc()): ?>
+            <tr>
+                <td><?= htmlspecialchars($r['nimi']) ?></td>
+            </tr>
         <?php endwhile; ?>
     </table>
 </main>

@@ -2,17 +2,21 @@
 include 'db.php';
 include 'header.php';
 
-// Lisää kurssi lomakkeelta
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nimi = $_POST['kurssi_nimi'];
-    $kuvaus = $_POST['kurssikuvaus'];
-    $stmt = $mysqli->prepare("INSERT INTO kurssit (kurssi_nimi, kurssikuvaus) VALUES (?, ?)");
-    $stmt->bind_param("ss", $nimi, $kuvaus);
-    $stmt->execute();
-    $stmt->close();
+    $nimi = trim($_POST['kurssi_nimi']);
+    $kuvaus = trim($_POST['kurssikuvaus']);
+
+    if (!empty($nimi)) {
+        if ($stmt = $mysqli->prepare("INSERT INTO kurssit (kurssi_nimi, kurssikuvaus) VALUES (?, ?)")) {
+            $stmt->bind_param("ss", $nimi, $kuvaus);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            echo "Virhe: " . $mysqli->error;
+        }
+    }
 }
 
-// Hae kurssit
 $kurssit = $mysqli->query("SELECT * FROM kurssit");
 ?>
 <main>
@@ -27,7 +31,10 @@ $kurssit = $mysqli->query("SELECT * FROM kurssit");
     <table border="1">
         <tr><th>Nimi</th><th>Kuvaus</th></tr>
         <?php while ($r = $kurssit->fetch_assoc()): ?>
-            <tr><td><?= $r['kurssi_nimi'] ?></td><td><?= $r['kurssikuvaus'] ?></td></tr>
+            <tr>
+                <td><?= htmlspecialchars($r['kurssi_nimi']) ?></td>
+                <td><?= htmlspecialchars($r['kurssikuvaus']) ?></td>
+            </tr>
         <?php endwhile; ?>
     </table>
 </main>

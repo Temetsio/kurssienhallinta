@@ -2,16 +2,24 @@
 include 'db.php';
 include 'header.php';
 
-// Hae tilat
 $tilat = $mysqli->query("SELECT * FROM tilat");
+if (!$tilat) {
+    echo "<p>Virhe tietokantakyselyssä: " . $mysqli->error . "</p>";
+}
 ?>
 <main>
     <h2>Tilojen hallinta</h2>
+
     <table border="1">
         <tr><th>Tilan nimi</th><th>Kuvaus</th></tr>
-        <?php while($r = $tilat->fetch_assoc()): ?>
-            <tr><td><?= $r['tila_nimi'] ?></td><td><?= $r['kuvaus'] ?></td></tr>
-        <?php endwhile; ?>
+        <?php if ($tilat): ?>
+            <?php while($r = $tilat->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($r['tila_nimi']) ?></td>
+                    <td><?= htmlspecialchars($r['kuvaus']) ?></td>
+                </tr>
+            <?php endwhile; ?>
+        <?php endif; ?>
     </table>
 </main>
 <?php include 'footer.php'; ?>

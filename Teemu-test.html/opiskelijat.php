@@ -1,4 +1,23 @@
-<?php include 'db.php'; ?>
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nimi = trim($_POST['nimi']);
+    $kurssi_id = intval($_POST['kurssi_id']);
+
+    if ($nimi !== '' && $kurssi_id > 0) {
+
+        if ($stmt = $mysqli->prepare("INSERT INTO opiskelijat (nimi, kurssi_id) VALUES (?, ?)")) {
+            $stmt->bind_param("si", $nimi, $kurssi_id);
+            $stmt->execute();
+            $stmt->close();
+            echo "<p>Opiskelija lisätty onnistuneesti!</p>";
+        } else {
+            echo "<p>SQL-virhe: " . $mysqli->error . "</p>";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -24,11 +43,11 @@
         while ($row = $result->fetch_assoc()):
         ?>
             <option value="<?= $row['kurssi_id'] ?>">
-                <?= $row['kurssi_nimi'] ?>
+                <?= htmlspecialchars($row['kurssi_nimi']) ?>
             </option>
         <?php endwhile; ?>
-
     </select>
+
     <br><br>
 
     <button type="submit">Lisää opiskelija</button>

@@ -1,7 +1,14 @@
 <?php
-// header.php — navigation fragment to be included into pages.
-// Put <link> and other head content in the main page's <head>.
 ?>
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kurssienhallinta</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
 <header>
     <nav>
         <ul>
