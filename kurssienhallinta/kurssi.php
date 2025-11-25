@@ -13,7 +13,8 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 $kurssi_id = (int)$_GET['id'];
 
-$stmt = $pdo->prepare("SELECT k.*, o.etunimi AS op_etunimi, o.sukunimi AS op_sukunimi, t.tila_nimi
+$stmt = $pdo->prepare("SELECT k.*, o.etunimi AS op_etunimi, o.sukunimi AS op_sukunimi, 
+    t.tila_nimi, t.paikkoja
     FROM kurssit k
     JOIN opettajat o ON k.opettaja_id = o.opettaja_id
     JOIN tilat t ON k.tila_id = t.tila_id
@@ -29,6 +30,10 @@ $stmt = $pdo->prepare("SELECT i.ilmoittautuminen_id, o.oppilas_id, o.etunimi, o.
     ORDER BY i.ilmoittautumispaiva ASC");
 $stmt->execute([$kurssi_id]);
 $ilmo = $stmt->fetchAll();
+
+$osallistujia = count($ilmo);
+$cap = (int)$kurssi['paikkoja'];
+$over = $osallistujia > $cap;
 
 $opp = $pdo->query("SELECT oppilas_id, etunimi, sukunimi FROM oppilaat ORDER BY sukunimi")->fetchAll();
 
@@ -107,6 +112,38 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
     font-size: 11px;
     color: #007cb5ff;
 }
+.warn {
+    border: 2px solid #ff4d4d;
+    background: #ffe8e8;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 180px;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 10;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 </style>
 
 </head>
@@ -128,6 +165,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
         <div><strong>Tunnus:</strong> <?= htmlspecialchars($kurssi['kurssin_tunnus']) ?></div>
         <div><strong>Opettaja:</strong> <?= htmlspecialchars($kurssi['op_etunimi'].' '.$kurssi['op_sukunimi']) ?></div>
         <div><strong>Tila:</strong> <?= htmlspecialchars($kurssi['tila_nimi']) ?></div>
+        <div><strong>Kapasiteetti:</strong> <?= $cap ?> paikkaa</div>
         <div><strong>Ajanjakso:</strong> <?= finDate($kurssi['aloituspaiva']) ?> — <?= finDate($kurssi['lopetuspaiva']) ?></div>
       </div>
     </div>
@@ -139,8 +177,18 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
       </div>
     <?php endif; ?>
 
-    <h2 style="margin:22px 0 10px">Ilmoittautuneet</h2>
-    <div class="card table-wrap">
+    <h2 style="margin:22px 0 10px">
+      Ilmoittautuneet (<?= $osallistujia ?> / <?= $cap ?>)
+      <?php if ($over): ?>
+    <span class="tooltip" style="color:red; font-weight:bold; margin-left:6px; cursor:help;">
+        ⚠️ Tilaa ei riitä!
+        <span class="tooltiptext">Osallistujia on enemmän kuin tilassa on paikkoja.</span>
+    </span>
+<?php endif; ?>
+
+    </h2>
+
+    <div class="card table-wrap <?= $over ? 'warn' : '' ?>">
       <?php if (count($ilmo) === 0): ?>
         <p class="muted">Ei ilmoittautuneita.</p>
       <?php else: ?>
