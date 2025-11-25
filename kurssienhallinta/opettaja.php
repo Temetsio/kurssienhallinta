@@ -32,7 +32,6 @@ $kurssit = $stmt->fetchAll();
 $week = isset($_GET['week']) ? (int)$_GET['week'] : date("W");
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date("Y");
 
-
 $dt = new DateTime();
 $dt->setISODate($year, $week);
 $weekStart = $dt->format("Y-m-d");
@@ -67,7 +66,8 @@ foreach ($sessiot as $s) {
   <meta charset="utf-8">
   <title><?= htmlspecialchars($op['sukunimi'].' '.$op['etunimi']) ?></title>
   <link rel="stylesheet" href="styles.css">
-  <style>
+
+<style>
 .calendar-grid {
     display: grid;
     grid-template-columns: 80px repeat(5, 1fr);
@@ -76,7 +76,6 @@ foreach ($sessiot as $s) {
     background: #fff;
     color: #007cb5ff;
 }
-
 .time-cell {
     border-bottom: 1px solid #eee;
     height: 60px;
@@ -84,13 +83,11 @@ foreach ($sessiot as $s) {
     font-size: 12px;
     color: #007cb5ff;
 }
-
 .day-column {
     position: relative;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #eee;
 }
-
 .session-box {
     position: absolute;
     left: 4%;
@@ -102,17 +99,15 @@ foreach ($sessiot as $s) {
     box-sizing: border-box;
     font-size: 13px;
     overflow: hidden;
+    cursor: pointer;
 }
-
 .session-box:hover {
     background: #c7d7ff;
 }
-
 .session-title {
     font-weight: bold;
     color: #fbbf24;
 }
-
 .session-room {
     font-size: 11px;
     color: #007cb5ff;
@@ -122,6 +117,7 @@ foreach ($sessiot as $s) {
 </head>
 <body>
   <div class="container">
+
     <div class="nav">
       <a href="index.php">Kurssit</a>
       <a href="oppilaat.php">Oppilaat</a>
@@ -157,6 +153,7 @@ foreach ($sessiot as $s) {
         </tbody>
       </table>
     </div>
+
 <h2 style="margin-top:40px;">Viikkokalenteri</h2>
 
 <p>
@@ -174,7 +171,7 @@ foreach ($sessiot as $s) {
     $endHour = 17;
     ?>
 
-    <div></div> 
+    <div></div>
 
     <?php foreach ($paivat as $pv): ?>
         <div style="text-align:center; padding:5px; font-weight:bold; border-bottom:1px solid #ccc;">
@@ -184,7 +181,6 @@ foreach ($sessiot as $s) {
 
     <?php for ($h = $startHour; $h <= $endHour; $h++): ?>
         <div class="time-cell"><?= sprintf("%02d:00", $h) ?></div>
-
         <?php foreach ($paivat as $pv): ?>
             <div class="day-column" data-day="<?= $pv ?>"></div>
         <?php endforeach; ?>
@@ -194,7 +190,7 @@ foreach ($sessiot as $s) {
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const cellHeight = 60; 
+    const cellHeight = 60;
     const startHour = <?= $startHour ?>;
 
     const sessions = <?= json_encode($sessiot, JSON_UNESCAPED_UNICODE) ?>;
@@ -212,8 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const [sh, sm] = (s.alkuaika || "00:00").split(":").map(Number);
             const [eh, em] = (s.loppuaika || "00:00").split(":").map(Number);
             return Object.assign({}, s, {
-                start: (isFinite(sh) ? sh : 0) * 60 + (isFinite(sm) ? sm : 0),
-                end: (isFinite(eh) ? eh : 0) * 60 + (isFinite(em) ? em : 0)
+                start: (sh || 0) * 60 + (sm || 0),
+                end: (eh || 0) * 60 + (em || 0)
             });
         });
 
@@ -245,44 +241,37 @@ document.addEventListener("DOMContentLoaded", () => {
         const column = document.querySelector('.day-column[data-day="' + day + '"]');
         if (!column) return;
 
-        daySessions.forEach((s, idx) => {
+        daySessions.forEach(s => {
             let start = s.start;
             let end = s.end;
-            if (end <= start) {
-                end = start + 30;
-            }
+            if (end <= start) end = start + 30;
 
             const top = ((start - startHour * 60) / 60) * cellHeight;
-            const height = Math.max(20, ((end - start) / 60) * cellHeight); 
+            const height = Math.max(20, ((end - start) / 60) * cellHeight);
 
             const width = 100 / totalLanes;
             const left = width * (s.lane || 0);
 
-            let targetHref = null;
-            if (s.kurssi_id !== undefined && s.kurssi_id !== null && s.kurssi_id !== "") {
-                targetHref = "kurssi.php?id=" + encodeURIComponent(s.kurssi_id);
-            } else if (s.kurssin_tunnus) {
-                targetHref = "kurssi.php?code=" + encodeURIComponent(s.kurssin_tunnus);
-            } else {
-                targetHref = "#";
-            }
+            let box = document.createElement("div");
+            box.className = "session-box";
+            box.onclick = () => {
+                if (s.kurssi_id) {
+                    window.location.href = "kurssi.php?id=" + s.kurssi_id;
+                }
+            };
+            box.style.top = top + "px";
+            box.style.height = height + "px";
+            box.style.width = `calc(${width}% - 6px)`;
+            box.style.left = `calc(${left}% + 3px)`;
+            box.style.zIndex = 100 + (s.lane || 0);
 
-            let a = document.createElement("a");
-            a.href = targetHref;
-            a.className = "session-box";
-            a.style.top = top + "px";
-            a.style.height = height + "px";
-            a.style.width = `calc(${width}% - 6px)`;
-            a.style.left = `calc(${left}% + 3px)`;
-            a.style.zIndex = 100 + (s.lane || 0);
-
-            a.innerHTML = `
+            box.innerHTML = `
                 <div class="session-title">${escapeHtml(s.kurssi_nimi || s.kurssin_tunnus || '')}</div>
                 <div>${(s.alkuaika||'').substring(0,5)}–${(s.loppuaika||'').substring(0,5)}</div>
                 <div class="session-room">${escapeHtml(s.tila_nimi || '')}</div>
             `;
 
-            column.appendChild(a);
+            column.appendChild(box);
         });
     });
 
