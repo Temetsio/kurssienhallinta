@@ -94,6 +94,7 @@ $paivat = ["Maanantai","Tiistai","Keskiviikko","Torstai","Perjantai"];
     box-sizing: border-box;
     font-size: 13px;
     overflow: hidden;
+    cursor: pointer;
 }
 .session-box:hover {
     background: #c7d7ff;
@@ -245,24 +246,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const width = 100 / totalLanes;
             const left = width * (s.lane || 0);
 
-            const href = "kurssi.php?id=" + encodeURIComponent(s.kurssi_id);
+            let box = document.createElement("div");
+            box.className = "session-box";
 
-            let a = document.createElement("a");
-            a.href = href;
-            a.className = "session-box";
-            a.style.top = top + "px";
-            a.style.height = height + "px";
-            a.style.width = `calc(${width}% - 6px)`;
-            a.style.left = `calc(${left}% + 3px)`;
-            a.style.zIndex = 100 + (s.lane || 0);
+            box.onclick = () => {
+                if (s.kurssi_id) {
+                    window.location.href = "kurssi.php?id=" + s.kurssi_id;
+                }
+            };
 
-            a.innerHTML = `
+            box.style.top = top + "px";
+            box.style.height = height + "px";
+            box.style.width = `calc(${width}% - 6px)`;
+            box.style.left = `calc(${left}% + 3px)`;
+            box.style.zIndex = 100 + (s.lane || 0);
+
+            box.innerHTML = `
                 <div class="session-title">${escapeHtml(s.kurssi_nimi)}</div>
                 <div>${(s.alkuaika||'').substring(0,5)}–${(s.loppuaika||'').substring(0,5)}</div>
                 <div class="session-room">${escapeHtml(s.tila_nimi || '')}</div>
             `;
 
-            column.appendChild(a);
+            column.appendChild(box);
         });
     });
 
