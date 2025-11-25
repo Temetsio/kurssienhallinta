@@ -139,7 +139,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
       </form>
     </section><br>
 
-    <!-- Kurssisessiot -->
+    <!-- Kurssisessiot 
 <section class="card">
   <h2>Kurssisessiot</h2>
   <a href="add_edit_sessio.php" class="button">➕ Lisää uusi sessio</a>
@@ -181,7 +181,7 @@ $tilat = $pdo->query("SELECT tila_id, tila_nimi FROM tilat ORDER BY tila_nimi")-
     <button type="submit" class="button danger">🗑️ Poista</button>
   </form>
 </section><br>
-
+-->
 
   </div>
 </body>
