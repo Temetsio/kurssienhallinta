@@ -28,12 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
       try {
           if (!empty($tila_id)) {
-              // Päivitä
               $stmt = $pdo->prepare("UPDATE tilat SET tila_nimi=?, paikkoja=? WHERE tila_id=?");
               $stmt->execute([$nimi, $paikat, $tila_id]);
               $successMessage = "Tila päivitettiin onnistuneesti!";
           } else {
-              // Lisää uusi
               $stmt = $pdo->prepare("INSERT INTO tilat (tila_nimi, paikkoja) VALUES (?,?)");
               $stmt->execute([$nimi, $paikat]);
               $successMessage = "Uusi tila lisättiin onnistuneesti!";

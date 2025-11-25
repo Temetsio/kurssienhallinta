@@ -12,14 +12,12 @@ $opettaja = [
   'aine' => ''
 ];
 
-// Haetaan muokattava opettaja
 if (isset($_GET['id'])) {
     $stmt = $pdo->prepare("SELECT * FROM opettajat WHERE opettaja_id=?");
     $stmt->execute([$_GET['id']]);
     $opettaja = $stmt->fetch() ?: $opettaja;
 }
 
-// Tallennus
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $opettaja_id = $_POST['opettaja_id'] ?? null;
@@ -27,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sukunimi    = trim($_POST['sukunimi']);
     $aine        = trim($_POST['aine']);
 
-    // Päivitetään lomakearvot vaikka olisi virhe
     $opettaja = [
         'opettaja_id' => $opettaja_id,
         'etunimi' => $etunimi,
@@ -40,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             if (!empty($opettaja_id)) {
-                // Päivitä
                 $stmt = $pdo->prepare("
                     UPDATE opettajat 
                     SET etunimi=?, sukunimi=?, aine=? 
@@ -49,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$etunimi, $sukunimi, $aine, $opettaja_id]);
                 $successMessage = "Opettaja päivitettiin onnistuneesti!";
             } else {
-                // Lisää
                 $stmt = $pdo->prepare("
                     INSERT INTO opettajat (etunimi, sukunimi, aine)
                     VALUES (?,?,?)
@@ -57,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$etunimi, $sukunimi, $aine]);
                 $successMessage = "Uusi opettaja lisättiin onnistuneesti!";
 
-                // Tyhjennetään lomake lisäyksen jälkeen
                 $opettaja = [
                     'opettaja_id' => null,
                     'etunimi' => '',

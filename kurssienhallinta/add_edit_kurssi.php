@@ -3,12 +3,12 @@ require_once 'db.php';
 
 function finDate($date) {
     if (!$date) return '';
-    return date("d.m.Y", strtotime($date)); // Suomalainen formaatti näyttöön
+    return date("d.m.Y", strtotime($date)); 
 }
 
 function dateForInput($date) {
     if (!$date) return '';
-    return date("Y-m-d", strtotime($date)); // date-input vaatii tämän
+    return date("Y-m-d", strtotime($date)); 
 }
 
 $pdo = getPDO();
@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $opettaja_id   = trim($_POST['opettaja_id']);
   $tila_id       = trim($_POST['tila_id']);
 
-  // Palautetaan lomakkeen tiedot takaisin näkymään
   $kurssi = [
       'kurssi_id' => $kurssi_id,
       'kurssin_tunnus' => $tunnus,
@@ -81,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               $successMessage = "Uusi kurssi lisättiin onnistuneesti!";
 
-              // Tyhjennä lomake lisäyksen jälkeen
               $kurssi = [
                 'kurssi_id' => null,
                 'kurssin_tunnus' => '',

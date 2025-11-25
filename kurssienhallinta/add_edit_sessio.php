@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (msg) {
         setTimeout(() => {
             msg.classList.add("fade-out");
-        }, 3000); // 3 sekuntia näkyvissä
+        }, 3000); 
     }
 });
 </script>
