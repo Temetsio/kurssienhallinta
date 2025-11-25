@@ -259,7 +259,7 @@ INSERT INTO `kurssit` (`kurssi_id`, `kurssin_tunnus`, `kurssi_nimi`, `kurssikuva
 (35, 'US201', 'Uskonto 2', 'Etiikka ja moraali', '2025-09-01', '2026-05-29', 18, 5),
 (36, 'LII201', 'Liikunta 2', 'Joukkuelajit', '2025-09-01', '2026-05-29', 19, 1),
 (37, 'BIO201', 'Biologia 2', 'Ekologia ja ympäristö', '2025-09-01', '2026-05-29', 20, 7),
-(38, 'TEST999', 'Ylitäysi testikurssi', 'Testi kapasiteetille', '2025-09-01', '2026-05-29', 1, 7);
+(38, 'TEST999', 'Ylitäysi testikurssi', 'Testi kapasiteetille', '2025-09-01', '2026-05-29', 1, 15);
 
 -- --------------------------------------------------------
 
