@@ -6,9 +6,8 @@ Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita
 
 ## TIIMI
 
-- Jenni: Tietokantasuunnittelu ja -toteutus  
-- Vesku: Backend-arkkitehtuuri ja tietokantayhteys  
-- Eevert: Lomakkeet ja CRUD-toiminnot  
+- Jenni: Tietokantasuunnittelu ja -toteutus , readme.md 
+- Vesku: Backend-arkkitehtuuri ja tietokantayhteys, Lomakkeet ja CRUD-toiminnot  
 - Meleqe: Näkymät ja raportit  
 - Teemu: UI/UX ja viimeistely  
 
@@ -51,7 +50,16 @@ Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita
 - `opiskelija_id` (FK viittaa `oppilaat`)  
 - `kurssi_id` (FK viittaa `kurssit`)  
 - `ilmoittautumispaiva` (DATETIME)  
-- UNIQUE constraint: (`opiskelija_id`, `kurssi_id`)  
+- UNIQUE constraint: (`opiskelija_id`, `kurssi_id`)
+
+#### kurssisessiot 
+- `sessio_id` (PK, INT, AUTO_INCREMENT)
+- `kurssi_id` (FK viittaa `kurssit`)
+- `viikonpaiva` (ENUM)
+- `alkuaika` (TIME)
+- `loppuaika` (TIME)
+- `created_at` (TIMESTAMP)
+- `tila_id` (FK viittaa `tilat`)
 
 ---
 
@@ -59,14 +67,19 @@ Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita
 
 - `opettajat` (1) → (n) `kurssit`  
 - `tilat` (1) → (n) `kurssit`  
-- `oppilaat` (n) ↔ (n) `kurssit` (`ilmoittautuminen`-välitaulu)  
+- `oppilaat` (n) ↔ (n) `kurssit` (`ilmoittautuminen`-välitaulu)
+- `kurssit` (1) → (n) `kurssisessiot`
 
 ---
 
 ## NÄKYMÄT (VIEWS)
 
-- `nakyma_kaynnissa_olevat_kurssit` – Käynnissä olevat kurssit ja ilmoittautuneet  
-- `nakyma_tulevat_kurssit` – Tulevat kurssit ja vapaat paikat  
+- `nakyma_kaynnissa_olevat_kurssit` – Käynnissä olevat kurssit ja ilmoittautuneet
+- `nakyma_kurssin_aikataulu` - Kurssien aikataulut
+- `nakyma_opettajan_aikataulu` - Opettajien aikataulut
+- `nakyma_tulevat_kurssit` – Tulevat kurssit ja vapaat paikat
+- `nakyma_opiskelijan_aikataulu` - Opiskelijoiden aikataulut
+- `nakyma_tilan_aikataulu` - Tilojen aikataulut
 - `nakyma_ylibuukatut_kurssit` – Kurssit, joissa ilmoittautuneita enemmän kuin kapasiteetti  
 - `nakyma_kurssit_taydellinen` – Kurssien tiedot, opettaja, tila, ilmoittautuneet ja vapaita paikkoja  
 - `nakyma_opettajat_kurssit` – Opettajien tiedot ja heidän kurssinsa  
@@ -167,15 +180,26 @@ kurssienhallinta/
 │   ├── add_edit_kurssi.php/
 │   ├── add_edit_opettaja.php/
 │   ├── add_edit_oppilas.php/
+│   ├── add_edit_sessio.php/
 │   ├── add_edit_tila.php/
+│   ├── admin.php/
 │   ├── config.php/
 │   ├── db.php/
+│   ├── delete_kurssi.php/
+│   ├── delete_opettaja.php/
+│   ├── delete_oppilas.php/
+│   ├── delete_sessio.php/
+│   ├── delete_tila.php/
 │   ├── ilmoittaudu.php/
 │   ├── index.php/
 │   ├── kurssi.php/
+│   ├── opettaja.php/
 │   ├── opettajat.php/
+│   ├── opiskelijat.php/
 │   ├── oppilaat.php/
 │   ├── poista_ilmo.php/
+│   ├── styles.css/
+│   ├── tila.php/
 │   ├── tilat.php/
 ├── er-kaavio
 ├── README.md
@@ -211,7 +235,7 @@ Raporttien vienti PDF:ksi
 
 Projekti tehty osana Juhannuskukkulan tietokantakurssia.
 
-Tiimi: Meleqe, Teemu, Vesku, Eevert ja Jenni
+Tiimi: Meleqe, Teemu, Vesku ja Jenni
 
 Päivämäärä: Lokakuu 2025
 
