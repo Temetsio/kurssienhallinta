@@ -214,22 +214,6 @@ kurssienhallinta/
 3. Avaa selaimessa: http://localhost/kurssienhallinta/
 ```
 
-### KEHITYSIDEOITA
-
-```
-Käyttäjien kirjautuminen (admin/opiskelija)
-
-Arvosanojen hallinta
-
-Läsnäolojen seuranta
-
-Kurssien hakutoiminto
-
-Ilmoittautumisen vahvistusviestit
-
-Raporttien vienti PDF:ksi
-
-```
 
 ### YHTEYSTIEDOT
 
