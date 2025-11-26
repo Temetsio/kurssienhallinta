@@ -8,8 +8,8 @@ Oppilaitoksen kurssienhallintajärjestelmä, jossa voidaan hallinnoida oppilaita
 
 - Jenni: Tietokantasuunnittelu ja -toteutus , readme.md 
 - Vesku: Backend-arkkitehtuuri ja tietokantayhteys, Lomakkeet ja CRUD-toiminnot  
-- Meleqe: Näkymät ja raportit  
-- Teemu: UI/UX ja viimeistely  
+- Meleqe: UI/UX suunnittelu  
+- Teemu: Näkymät
 
 ---
 
